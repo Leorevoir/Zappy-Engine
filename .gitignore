@@ -54,7 +54,3 @@ compile_commands.json
 build/
 !CMakeLists.txt
 cmake-build-debug/
-
-/external/*
-!/external/.gitkeep
-test.cpp
