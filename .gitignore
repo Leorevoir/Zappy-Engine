@@ -55,5 +55,6 @@ build/
 !CMakeLists.txt
 cmake-build-debug/
 
-external/
+/external/*
+!/external/.gitkeep
 test.cpp
