@@ -45,6 +45,10 @@ struct Vector3 {
  * @return the result (vector)
  */
 template<typename T>
-std::ostream &operator<<(std::ostream &os, const Vector3<T> &self);
+static inline std::ostream &operator<<(std::ostream &os, const Vector3<T> &self)
+{
+    os << "{" << self._x << ", " << self._y << ", " << self._z << "}";
+    return os;
+}
 
 }// namespace math

@@ -6,6 +6,8 @@
 */
 
 #include "Application.hpp"
+#include "Engine/Math/Vector2.hpp"
+#include "Engine/Math/Vector3.hpp"
 #include "Error.hpp"
 
 // clang-format off
@@ -29,6 +31,7 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
     return instance;
 }
 
+#include <iostream>
 /**
 * @brief Application::run
 * @details main entry-point, run the application
@@ -36,6 +39,12 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
 */
 void zap::core::Application::run()
 {
+    std::cout << "vector tests" << std::endl;
+    math::Vector2<float> vec2(1.0f, 2.0f);
+    math::Vector3<unsigned short> vec3(3, 4, 1);
+
+    std::cout << vec2 << std::endl;
+    std::cout << vec3 << std::endl;
     //
 }
 
