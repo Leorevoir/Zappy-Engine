@@ -104,3 +104,13 @@ bool zap::Window::shouldClose() const noexcept
 {
     return glfwWindowShouldClose(_handle);
 }
+
+/**
+* @brief Window::close
+* @details set the window shouldClose to true
+* @return void
+*/
+void zap::Window::close() const noexcept
+{
+    glfwSetWindowShouldClose(_handle, GL_TRUE);
+}

@@ -20,8 +20,10 @@ class Window final
 
         [[nodiscard]] WindowPtr getHandle() noexcept;
         [[nodiscard]] bool shouldClose() const noexcept;
+
         void create(const math::Vector2<int> &size, const char *title = "Engine");
         void destroy() noexcept;
+        void close() const noexcept;
         void swapBuffer() const noexcept;
 
     private:

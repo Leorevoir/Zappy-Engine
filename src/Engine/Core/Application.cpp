@@ -6,7 +6,8 @@
 */
 
 #include "Application.hpp"
-#include "Engine/Window/EventManager.hpp"
+#include "Engine/Event/EventManager.hpp"
+#include "Engine/Event/KeyEvent.hpp"
 #include "Engine/Window/Window.hpp"
 #include "Error.hpp"
 #include <thread>
@@ -35,20 +36,24 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
 void zap::core::Application::run()
 {
     zap::Window window({1780, 720});
-    EventManager::init(window.getHandle());
+    event::EventManager::init(window.getHandle());
+
+    event::EventManager::subscribe(event::EventType::KeyPressed, [&](const event::IEvent &e) {
+        const auto &keyEvent = static_cast<const event::KeyPressedEvent &>(e);
+
+        if (keyEvent.getKeyCode() == GLFW_KEY_ESCAPE) {
+            window.close();
+        }
+    });
 
     while (!window.shouldClose()) {
-        EventManager::pollEvents();
-
-        if (EventManager::isKeyPressed(GLFW_KEY_ESCAPE)) {
-            break;
-        }
+        event::EventManager::pollEvents();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         window.swapBuffer();
-        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));// <<~60 FPS
     }
 }
 
