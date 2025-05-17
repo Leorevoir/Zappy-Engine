@@ -3,5 +3,5 @@
 clone the repo
 
 ```bash
-git clone --recurse-submodules -j$(nproc) git@github.com:Leorevoir/Zappy.git
+git clone --recurse-submodules -j$(nproc) git@github.com:Leorevoir/Zappy-Engine.git
 ```
