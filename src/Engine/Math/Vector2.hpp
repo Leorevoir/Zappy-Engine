@@ -25,10 +25,11 @@ struct Vector2 {
     /**
      * @brief __ctor__
      * @details construct a Vector2<T> with any arithmetic types (T1, T2)
+     * no explicit because we want to instanciate like this example: {1780, 720}
      */
     template<typename T1, typename T2, typename = std::enable_if_t<
         std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>>
-    explicit Vector2(const T1 x, const T2 y) : _x(static_cast<T>(x)), _y(static_cast<T>(y))
+    Vector2(const T1 x, const T2 y) : _x(static_cast<T>(x)), _y(static_cast<T>(y))
     {
         /* __ctor__ */
     }

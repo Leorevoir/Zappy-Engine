@@ -26,10 +26,11 @@ struct Vector3 {
     /**
      * @brief __ctor__
      * @details construct a Vector3<T> with any arithmetic types (T1, T2, T3)
+     * no explicit because we want to instanciate like this example: {1, 2, 3}
      */
     template<typename T1, typename T2, typename T3, typename = std::enable_if_t<
     std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2> && std::is_arithmetic_v<T3>>>
-    explicit Vector3(const T1 x, const T2 y, const T3 z) : _x(static_cast<T>(x)), _y(static_cast<T>(y)), _z(static_cast<T>(z))
+    Vector3(const T1 x, const T2 y, const T3 z) : _x(static_cast<T>(x)), _y(static_cast<T>(y)), _z(static_cast<T>(z))
     {
         /* __ctor__ */
     }

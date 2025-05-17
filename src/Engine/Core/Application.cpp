@@ -6,14 +6,10 @@
 */
 
 #include "Application.hpp"
-#include "Engine/Math/Vector2.hpp"
-#include "Engine/Math/Vector3.hpp"
+#include "Engine/Window/EventManager.hpp"
+#include "Engine/Window/Window.hpp"
 #include "Error.hpp"
-
-// clang-format off
-#include <glad/gl.h>
-#include "GLFW/glfw3.h"
-// clang-format on
+#include <thread>
 
 /**
 * public
@@ -31,7 +27,6 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
     return instance;
 }
 
-#include <iostream>
 /**
 * @brief Application::run
 * @details main entry-point, run the application
@@ -39,13 +34,22 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
 */
 void zap::core::Application::run()
 {
-    std::cout << "vector tests" << std::endl;
-    math::Vector2<float> vec2(1.0f, 2.0f);
-    math::Vector3<unsigned short> vec3(3, 4, 1);
+    zap::Window window({1780, 720});
+    EventManager::init(window.getHandle());
 
-    std::cout << vec2 << std::endl;
-    std::cout << vec3 << std::endl;
-    //
+    while (!window.shouldClose()) {
+        EventManager::pollEvents();
+
+        if (EventManager::isKeyPressed(GLFW_KEY_ESCAPE)) {
+            break;
+        }
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        window.swapBuffer();
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    }
 }
 
 /**

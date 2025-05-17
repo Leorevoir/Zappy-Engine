@@ -24,15 +24,14 @@
     #define unit_static static
 #endif
 
+#define UNUSED __attribute__((unused))
+
 /**
 * @brief DEFAULT MACROS
 * @details default general macros to avoid magic numbers everywhere
 */
 
-/**
-* @brief Math Pi / 180.0
-*/
-#define DEGREE_TO_RADIANT 0.017453292519943295
+#define ZAP_OPENGL_CONTEXT_MAJOR 3
+#define ZAP_OPENGL_CONTEXT_MINOR 3
 
-#define MAX_COLOR 255.0
-#define MIN_COLOR 0.0
+#define ZAP_GLINT_VIEWPORT 0
