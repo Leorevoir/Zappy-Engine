@@ -30,7 +30,7 @@ zap::Window::~Window()
 }
 
 extern "C" {
-static void set_glfw_window_hints(const char *title)
+static void c_set_glfw_window_hints(const char *title)
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, ZAP_OPENGL_CONTEXT_MAJOR);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, ZAP_OPENGL_CONTEXT_MINOR);
@@ -58,7 +58,7 @@ static void set_glfw_window_hints(const char *title)
 void zap::Window::create(const math::Vector2<int> &size, const char *title)
 {
     destroy();
-    set_glfw_window_hints(title);
+    c_set_glfw_window_hints(title);
     if ((_handle = glfwCreateWindow(size._x, size._y, title, nullptr, nullptr)) == nullptr) {
         throw exception::Error("Window::create", "failed to create GLFW window handle");
     }
