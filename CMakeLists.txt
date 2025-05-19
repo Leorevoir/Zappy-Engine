@@ -70,7 +70,7 @@ target_compile_options(zappy PRIVATE
     # INFO: type safety & conversions
     -Wconversion
     -Wsign-conversion
-    -Wfloat-equal
+    -Wfloat-equal # << WARN: PURE HATE flag lol
 
     # INFO: code correctness
     -Wshadow
@@ -88,12 +88,12 @@ target_compile_options(zappy PRIVATE
     -Wnon-virtual-dtor
 
     # INFO: logic bugs & bad practices
-    -Wduplicated-cond
-    -Wduplicated-branches
-    -Wlogical-op
+    # -Wduplicated-cond << not on clang
+    # -Wduplicated-branches << not on clang
+    # -Wlogical-op << not on clang
     -Wswitch-default
-    -Wswitch-enum
-    -Wuseless-cast
+    # -Wswitch-enum << commented because i dont think this flag is pertinent (we have default: break...)
+    # -Wuseless-cast << not on clang
 
     # INFO: prevent common portability issues
     -Wdouble-promotion
