@@ -14,12 +14,12 @@
  */
 
 /**
-* @brief EventManager::init
+* @brief EventManager::initialize
 * @details initialize the EventManager with a window
 * @param window the window to use
 * @return void
 */
-void zap::EventManager::init(WindowPtr window)
+void zap::EventManager::initialize(WindowPtr window)
 {
     if ((_window = window) == nullptr) {
         throw exception::Error("EventManager::init", "cannot initialize EventManager with a NULL WindowPtr");

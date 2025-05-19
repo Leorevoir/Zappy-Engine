@@ -24,7 +24,7 @@ namespace zap {
 class EventManager final : public NonCopyable
 {
     public:
-        static void init(WindowPtr window);
+        static void initialize(WindowPtr window);
         static void pollEvents() noexcept;
         static void subscribe(const EventType type, EventDispatcher::Callback handler) noexcept;
 

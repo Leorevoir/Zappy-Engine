@@ -44,7 +44,7 @@ void zap::core::Application::run()
 {
     Window window(ZAP_DEFAULT_WIDOW_SIZE);
     Timer::initialize();
-    EventManager::init(window.getHandle());
+    EventManager::initialize(window.getHandle());
     Renderer::initialize(window.getHandle());
 
     EventManager::subscribe(EventType::KeyPressed, [&](const IEvent &e) {
