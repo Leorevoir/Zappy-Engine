@@ -6,10 +6,12 @@
 */
 
 #include "Application.hpp"
+#include "Engine/Core/Timer.hpp"
 #include "Engine/Event/EventManager.hpp"
 #include "Engine/Event/KeyEvent.hpp"
 #include "Engine/Window/Window.hpp"
 #include "Error.hpp"
+#include <iostream>
 #include <thread>
 
 /**
@@ -36,6 +38,7 @@ zap::core::Application &zap::core::Application::getInstance() noexcept
 void zap::core::Application::run()
 {
     zap::Window window({1780, 720});
+    zap::core::Timer::initialize();
     event::EventManager::init(window.getHandle());
 
     event::EventManager::subscribe(event::EventType::KeyPressed, [&](const event::IEvent &e) {
@@ -47,7 +50,10 @@ void zap::core::Application::run()
     });
 
     while (!window.shouldClose()) {
+        std::cout << "time: " << zap::core::Timer::getDeltaTime() << std::endl;
+        ;
         event::EventManager::pollEvents();
+        zap::core::Timer::update();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
