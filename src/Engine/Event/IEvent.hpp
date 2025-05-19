@@ -1,6 +1,13 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** IEvent.hpp
+*/
+
 #pragma once
 
-namespace zap::event {
+namespace zap {
 
 // clang-format off
 enum class EventType {
@@ -17,7 +24,7 @@ enum class EventType {
 /**
 * @class IEvent
 * @brief base event interface
-* @pattern observer
+* @pattern Interface
 */
 class IEvent
 {
@@ -26,4 +33,4 @@ class IEvent
         virtual EventType getType() const = 0;
 };
 
-}// namespace zap::event
+}// namespace zap

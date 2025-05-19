@@ -1,8 +1,15 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** KeyEvent.hpp
+*/
+
 #pragma once
 
 #include "IEvent.hpp"
 
-namespace zap::event {
+namespace zap {
 
 /**
 * @class KeyEvent
@@ -46,4 +53,4 @@ class KeyReleasedEvent : public KeyEvent
         [[nodiscard]] EventType getType() const noexcept override;
 };
 
-}// namespace zap::event
+}// namespace zap

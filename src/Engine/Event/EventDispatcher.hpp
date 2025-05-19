@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** EventDispatcher.hpp
+*/
+
 #pragma once
 
 #include "IEvent.hpp"
@@ -5,8 +12,13 @@
 #include <unordered_map>
 #include <vector>
 
-namespace zap::event {
+namespace zap {
 
+/**
+* @class EventDispatcher
+* @brief used to dispatch events to the callbacks subscribed to them
+* @pattern Observer
+*/
 class EventDispatcher final
 {
     public:
@@ -20,4 +32,4 @@ class EventDispatcher final
         CallbackMap _callbacks;
 };
 
-}// namespace zap::event
+}// namespace zap

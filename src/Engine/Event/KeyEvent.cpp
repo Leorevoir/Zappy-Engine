@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** KeyEvent.cpp
+*/
+
 #include "KeyEvent.hpp"
 
 /**
@@ -8,12 +15,12 @@
  * KeyEvent
  */
 
-zap::event::KeyEvent::KeyEvent(const int keycode) noexcept : _keycode(keycode)
+zap::KeyEvent::KeyEvent(const int keycode) noexcept : _keycode(keycode)
 {
     /* __ctor__ */
 }
 
-int zap::event::KeyEvent::getKeyCode() const noexcept
+int zap::KeyEvent::getKeyCode() const noexcept
 {
     return _keycode;
 }
@@ -22,7 +29,7 @@ int zap::event::KeyEvent::getKeyCode() const noexcept
  * KeyPressedEvent
  */
 
-zap::event::EventType zap::event::KeyPressedEvent::getType() const noexcept
+zap::EventType zap::KeyPressedEvent::getType() const noexcept
 {
     return EventType::KeyPressed;
 }
@@ -31,7 +38,7 @@ zap::event::EventType zap::event::KeyPressedEvent::getType() const noexcept
  * KeyReleasedEvent
  */
 
-zap::event::EventType zap::event::KeyReleasedEvent::getType() const noexcept
+zap::EventType zap::KeyReleasedEvent::getType() const noexcept
 {
     return EventType::KeyReleased;
 }

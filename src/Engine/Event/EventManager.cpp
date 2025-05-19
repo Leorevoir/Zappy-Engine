@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** EventManager.cpp
+*/
+
 #include "EventManager.hpp"
 #include "Engine/Event/KeyEvent.hpp"
 #include "Error.hpp"
@@ -7,11 +14,12 @@
  */
 
 /**
-* @brief
-* @details
-* @return
+* @brief EventManager::init
+* @details initialize the EventManager with a window
+* @param window the window to use
+* @return void
 */
-void zap::event::EventManager::init(WindowPtr window)
+void zap::EventManager::init(WindowPtr window)
 {
     if ((_window = window) == nullptr) {
         throw exception::Error("EventManager::init", "cannot initialize EventManager with a NULL WindowPtr");
@@ -20,20 +28,22 @@ void zap::event::EventManager::init(WindowPtr window)
 }
 
 /**
-* @brief
-* @details
-* @return
+* @brief EventManager::pollEvents
+* @details poll the events from the window
+* @return void
 */
-void zap::event::EventManager::pollEvents() noexcept
+void zap::EventManager::pollEvents() noexcept
 {
     glfwPollEvents();
 }
 
 /**
- *
- *
- */
-void zap::event::EventManager::subscribe(const EventType type, EventDispatcher::Callback handler) noexcept
+* @brief EventManager::subscribe
+* @details subscribe a callback to an event type
+* @param type the event type
+* @param handler the callback to call when the event is dispatched
+*/
+void zap::EventManager::subscribe(const EventType type, EventDispatcher::Callback handler) noexcept
 {
     _dispatcher.subscribe(type, handler);
 }
@@ -42,10 +52,15 @@ void zap::event::EventManager::subscribe(const EventType type, EventDispatcher::
 * private
 */
 
-zap::WindowPtr zap::event::EventManager::_window = nullptr;
-zap::event::EventDispatcher zap::event::EventManager::_dispatcher;
+zap::WindowPtr zap::EventManager::_window = nullptr;
+zap::EventDispatcher zap::EventManager::_dispatcher;
 
-void zap::event::EventManager::keyCallback(WindowPtr UNUSED win, const int key, const int UNUSED scancode, const int action, const int UNUSED mods) noexcept
+/**
+* @brief EventManager::keyCallback - OpenGL entry-point
+* @details callback for the key event (called by OpenGL)
+* @return void
+*/
+void zap::EventManager::keyCallback(WindowPtr UNUSED win, const int key, const int UNUSED scancode, const int action, const int UNUSED mods) noexcept
 {
     switch (action) {
         case GLFW_PRESS: {

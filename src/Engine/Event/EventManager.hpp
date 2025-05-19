@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** EventManager.hpp
+*/
+
 #pragma once
 
 #include "EventDispatcher.hpp"
@@ -7,12 +14,12 @@
 
 #include "NonCopyable.hpp"
 
-namespace zap::event {
+namespace zap {
 
 /**
-* @class
-* @brief
-* @pattern
+* @class EventManager
+* @brief used to manage events... literally
+* @pattern Singleton
 */
 class EventManager final : public NonCopyable
 {
@@ -28,4 +35,4 @@ class EventManager final : public NonCopyable
         static void keyCallback(WindowPtr UNUSED win, const int key, const int UNUSED scancode, const int action, const int UNUSED mods) noexcept;
 };
 
-}// namespace zap::event
+}// namespace zap
