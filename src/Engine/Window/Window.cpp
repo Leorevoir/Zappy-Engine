@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Window.cpp
+*/
+
 #include "Window.hpp"
 #include "Error.hpp"
 #include "Macro.hpp"

@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Window.hpp
+*/
+
 #pragma once
 
 #include "GLEngineTypes.hpp"
