@@ -21,7 +21,7 @@ namespace zap {
 * @brief used to manage events... literally
 * @pattern Singleton
 */
-class EventManager final : public NonCopyable
+class EventManager final : public abstract::NonCopyable
 {
     public:
         static void initialize(WindowPtr window);

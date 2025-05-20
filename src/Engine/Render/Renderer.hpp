@@ -7,17 +7,22 @@
 
 #pragma once
 
+#include "Engine/Shader/Shader.hpp"
 #include "GLEngineTypes.hpp"
 #include "NonCopyable.hpp"
 
+#include <memory>
+
 namespace zap {
+
+using ShaderPtr = std::unique_ptr<Shader>;
 
 /**
 * @class Renderer
 * @brief base renderer class, used to render everything you see
 * @pattern singleton
 */
-class Renderer : public NonCopyable
+class Renderer : public abstract::NonCopyable
 {
     public:
         static void initialize(WindowPtr window) noexcept;
@@ -26,5 +31,6 @@ class Renderer : public NonCopyable
 
     private:
         static WindowPtr _window;
+        static ShaderPtr _shader;
 };
 }// namespace zap

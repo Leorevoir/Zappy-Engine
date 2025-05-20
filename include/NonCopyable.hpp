@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace zap {
+namespace zap::abstract {
 
 /**
 * @class NonCopyable
@@ -26,4 +26,4 @@ class NonCopyable
         constexpr NonCopyable &operator=(NonCopyable &&) = delete;
         constexpr NonCopyable &operator=(const NonCopyable &) = delete;
 };
-}// namespace zap
+}// namespace zap::abstract

@@ -46,7 +46,6 @@ void zap::core::Application::run()
     Timer::initialize();
     EventManager::initialize(window.getHandle());
     Renderer::initialize(window.getHandle());
-
     EventManager::subscribe(EventType::KeyPressed, [&](const IEvent &e) {
         const KeyPressedEvent &keyEvent = static_cast<const KeyPressedEvent &>(e);
 
@@ -59,9 +58,12 @@ void zap::core::Application::run()
         EventManager::pollEvents();
         Timer::update();
         Renderer::render();
+
         window.swapBuffer();
         std::this_thread::sleep_for(std::chrono::milliseconds(16));// <<~60 FPS
     }
+
+    window.destroy();
 }
 
 /**
@@ -107,5 +109,6 @@ void zap::core::Application::_init()
 */
 void zap::core::Application::_destroy() noexcept
 {
+    Renderer::shutdown();
     glfwTerminate();
 }

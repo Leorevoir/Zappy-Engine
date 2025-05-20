@@ -37,6 +37,7 @@ static void c_set_glfw_window_hints(const char *title)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     glfwWindowHint(GLFW_FLOATING, GL_TRUE);
+    //TODO: antialiasing
 
 #if defined(__linux__)
     glfwWindowHintString(GLFW_WAYLAND_APP_ID, title);
@@ -47,6 +48,11 @@ static void c_set_glfw_window_hints(const char *title)
 #if defined(__APPLE__)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE)
 #endif
+}
+
+static void c_framebuffer_size_callback(GLFWwindow UNUSED *window, int width, int height)
+{
+    glViewport(ZAP_GLINT_VIEWPORT, ZAP_GLINT_VIEWPORT, width, height);
 }
 }
 
@@ -63,6 +69,7 @@ void zap::Window::create(const math::Vector2<int> &size, const char *title)
         throw exception::Error("Window::create", "failed to create GLFW window handle");
     }
     glfwMakeContextCurrent(_handle);
+    glfwSetFramebufferSizeCallback(_handle, c_framebuffer_size_callback);
     if (!gladLoadGL(glfwGetProcAddress)) {
         throw exception::Error("Window::create", "failed to initialize Glad");
     }

@@ -7,7 +7,9 @@
 
 #pragma once
 
+#include "Engine/Window/Window.hpp"
 #include "NonCopyable.hpp"
+#include <memory>
 
 namespace zap::core {
 
@@ -17,7 +19,7 @@ namespace zap::core {
 * @details TODO
 * @pattern Singleton
 */
-class Application final : public NonCopyable
+class Application final : public abstract::NonCopyable
 {
     public:
         static Application &getInstance() noexcept;
@@ -30,5 +32,7 @@ class Application final : public NonCopyable
 
         void _init();
         void _destroy() noexcept;
+
+        std::unique_ptr<Window> _window;
 };
 }// namespace zap::core

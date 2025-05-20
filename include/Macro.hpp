@@ -31,6 +31,8 @@
 * @details default general macros to avoid magic numbers everywhere
 */
 
+#define ZAP_DEFAULT_VALUE 0
+
 #define ZAP_OPENGL_CONTEXT_MAJOR 3
 #define ZAP_OPENGL_CONTEXT_MINOR 3
 
@@ -40,3 +42,7 @@
 
 #define ZAP_DEFAULT_WIDOW_SIZE {1920, 1080}
 #define ZAP_GL_CLEAR_COLOR 0.2f, 0.3f, 0.3f, 1.0f
+
+#define ZAP_INFO_LOG_BUFFER_SIZE 1042
+
+#define ZAP_DEFAULT_GLSIZEI 1

@@ -17,7 +17,7 @@ namespace zap::core {
 * @brief time-clock-related class
 * @pattern singleton
 */
-class Timer : public NonCopyable
+class Timer : public abstract::NonCopyable
 {
     public:
         static void initialize() noexcept;
