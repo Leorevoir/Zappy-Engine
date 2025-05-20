@@ -30,7 +30,7 @@ zap::Window::~Window()
 }
 
 extern "C" {
-static void c_set_glfw_window_hints(const char *title)
+static void c_set_glfw_window_hints(const char UNUSED *title)
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, ZAP_OPENGL_CONTEXT_MAJOR);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, ZAP_OPENGL_CONTEXT_MINOR);
@@ -46,7 +46,7 @@ static void c_set_glfw_window_hints(const char *title)
 #endif
 
 #if defined(__APPLE__)
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE)
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 }
 
