@@ -10,6 +10,7 @@
     #pragma clang diagnostic ignored "-Wdouble-promotion"
     #pragma clang diagnostic ignored "-Wconversion"
     #pragma clang diagnostic ignored "-Wswitch-default"
+    #pragma clang diagnostic ignored "-Wcast-align"
 #elif defined(__GNUC__)
     #pragma GCC diagnostic push
     #pragma GCC diagnostic ignored "-Wsign-conversion"
@@ -17,6 +18,7 @@
     #pragma GCC diagnostic ignored "-Wdouble-promotion"
     #pragma GCC diagnostic ignored "-Wconversion"
     #pragma GCC diagnostic ignored "-Wswitch-default"
+    #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
 
 #define STB_IMAGE_IMPLEMENTATION
