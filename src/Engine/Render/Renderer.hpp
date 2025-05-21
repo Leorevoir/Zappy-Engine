@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Engine/Render/Mesh.hpp"
+#include "Engine/Render/Texture.hpp"
 #include "Engine/Shader/Shader.hpp"
 #include "GLEngineTypes.hpp"
 #include "NonCopyable.hpp"
@@ -16,6 +18,8 @@
 namespace zap {
 
 using ShaderPtr = std::unique_ptr<Shader>;
+using MeshPtr = std::unique_ptr<Mesh>;
+using TexturePtr = std::unique_ptr<Texture>;
 
 /**
 * @class Renderer
@@ -32,6 +36,8 @@ class Renderer : public abstract::NonCopyable
     private:
         static WindowPtr _window;
         static ShaderPtr _shader;
+        static MeshPtr _mesh;
+        static TexturePtr _texture;
 
         static u32 VBO;
         static u32 VAO;
