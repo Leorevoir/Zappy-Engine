@@ -48,3 +48,8 @@ void zap::abstract::ShaderBase::setMat4(const char *RESTRICT name, const glm::ma
 {
     glUniformMatrix4fv(glGetUniformLocation(_program, name), 1, GL_FALSE, &value[0][0]);
 }
+
+zap::u32 zap::abstract::ShaderBase::getProgram() const noexcept
+{
+    return _program;
+}

@@ -68,10 +68,10 @@ static void _check_compile_errors(GLuint shader, const std::string &type)
     return shader;
 }
 
-zap::Shader::Shader(const char *vertex_path, const char *fragment_path, const char *geometry_path)
+zap::Shader::Shader(const std::string &vertex_path, const std::string &fragment_path, const std::string &geometry_path)
 {
-    const std::string vertex_source = _load_shader_source(vertex_path);
-    const std::string fragment_source = _load_shader_source(fragment_path);
+    const std::string vertex_source = _load_shader_source(vertex_path.c_str());
+    const std::string fragment_source = _load_shader_source(fragment_path.c_str());
     std::string geometry_source;
 
     /**
@@ -81,8 +81,8 @@ zap::Shader::Shader(const char *vertex_path, const char *fragment_path, const ch
     const char *fragment_code = fragment_source.c_str();
     const char *geometry_code = nullptr;
 
-    if (geometry_path != nullptr) {
-        geometry_source = _load_shader_source(geometry_path);
+    if (!geometry_path.empty()) {
+        geometry_source = _load_shader_source(geometry_path.c_str());
         geometry_code = geometry_source.c_str();
     }
 
@@ -90,7 +90,7 @@ zap::Shader::Shader(const char *vertex_path, const char *fragment_path, const ch
     u32 fragment = _compile_shader(fragment_code, GL_FRAGMENT_SHADER, "FRAGMENT");
     u32 geometry = ZAP_DEFAULT_VALUE;
 
-    if (geometry_path != nullptr) {
+    if (!geometry_path.empty()) {
         geometry = _compile_shader(geometry_code, GL_GEOMETRY_SHADER, "GEOMETRY");
     }
 
@@ -101,7 +101,7 @@ zap::Shader::Shader(const char *vertex_path, const char *fragment_path, const ch
     glAttachShader(_program, vertex);
     glAttachShader(_program, fragment);
 
-    if (geometry_path != nullptr) {
+    if (!geometry_path.empty()) {
         glAttachShader(_program, geometry);
     }
 
@@ -115,7 +115,7 @@ zap::Shader::Shader(const char *vertex_path, const char *fragment_path, const ch
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 
-    if (geometry_path != nullptr) {
+    if (!geometry_path.empty()) {
         glDeleteShader(geometry);
     }
 }

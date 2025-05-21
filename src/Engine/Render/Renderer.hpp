@@ -25,12 +25,16 @@ using ShaderPtr = std::unique_ptr<Shader>;
 class Renderer : public abstract::NonCopyable
 {
     public:
-        static void initialize(WindowPtr window) noexcept;
+        static void initialize(WindowPtr window);
         static void render() noexcept;
         static void shutdown() noexcept;
 
     private:
         static WindowPtr _window;
         static ShaderPtr _shader;
+
+        static u32 VBO;
+        static u32 VAO;
+        static u32 EBO;
 };
 }// namespace zap

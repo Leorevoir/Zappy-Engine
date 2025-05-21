@@ -34,6 +34,8 @@ class ShaderBase
         void setMat3(const char *RESTRICT name, const glm::mat3 &value) const noexcept;
         void setMat4(const char *RESTRICT name, const glm::mat4 &value) const noexcept;
 
+        u32 getProgram() const noexcept;
+
     protected:
         u32 _program = 0;
 };
