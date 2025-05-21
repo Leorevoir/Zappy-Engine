@@ -42,3 +42,12 @@ zap::EventType zap::KeyReleasedEvent::getType() const noexcept
 {
     return EventType::KeyReleased;
 }
+
+/**
+* KeyHeldEvent
+*/
+
+zap::EventType zap::KeyHeldEvent::getType() const noexcept
+{
+    return EventType::KeyHeld;
+}

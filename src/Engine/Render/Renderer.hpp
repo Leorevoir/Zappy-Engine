@@ -7,17 +7,19 @@
 
 #pragma once
 
-#include "Engine/Render/Texture.hpp"
-#include "Engine/Shader/Shader.hpp"
+#include "Engine/Render/Camera.hpp"
 #include "GLEngineTypes.hpp"
+#include "Model.hpp"
 #include "NonCopyable.hpp"
+#include <Engine/Shader/Shader.hpp>
 
 #include <memory>
 
 namespace zap {
 
-using ShaderPtr = std::unique_ptr<Shader>;
-using TexturePtr = std::unique_ptr<Texture>;
+using ShaderPtr = std::shared_ptr<Shader>;
+using ModelPtr = std::shared_ptr<Model>;
+using CameraPtr = std::unique_ptr<Camera>;
 
 /**
 * @class Renderer
@@ -32,12 +34,15 @@ class Renderer : public abstract::NonCopyable
         static void shutdown() noexcept;
 
     private:
-        static WindowPtr _window;
-        static ShaderPtr _shader;
-        static TexturePtr _texture;
+        static void _register_moved_event(GLFWwindow *window, double xposIn, double yposIn);
+        static void _register_scroll_event(GLFWwindow *window, double xoffset, double yoffset);
+        static void _register_key_event(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-        static u32 VBO;
-        static u32 VAO;
-        static u32 EBO;
+        static WindowPtr _window;
+        static CameraPtr _camera;
+        static ShaderPtr _planet_shader;
+        static ShaderPtr _asteroid_shader;
+        static ModelPtr _asteroid_model;
+        static ModelPtr _planet_model;
 };
 }// namespace zap

@@ -53,4 +53,17 @@ class KeyReleasedEvent : public KeyEvent
         [[nodiscard]] EventType getType() const noexcept override;
 };
 
+/**
+* @class KeyHeldEvent
+* @brief event triggered when a key is held down.
+* @pattern
+*/
+class KeyHeldEvent : public KeyEvent
+{
+    public:
+        using KeyEvent::KeyEvent;
+
+        [[nodiscard]] EventType getType() const noexcept override;
+};
+
 }// namespace zap

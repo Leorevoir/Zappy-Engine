@@ -73,7 +73,7 @@ void zap::Window::create(const math::Vector2<int> &size, const char *title)
     if (!gladLoadGL(glfwGetProcAddress)) {
         throw exception::Error("Window::create", "failed to initialize Glad");
     }
-    glViewport(ZAP_GLINT_VIEWPORT, ZAP_GLINT_VIEWPORT, size._x, size._y);
+    glEnable(GL_DEPTH_TEST);
 }
 
 /**

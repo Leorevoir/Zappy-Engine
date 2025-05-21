@@ -13,6 +13,7 @@ namespace zap {
 enum class EventType {
     KeyPressed,
     KeyReleased,
+    KeyHeld,
     MouseMoved,
     MouseScrolled,
     MouseButtonPressed,

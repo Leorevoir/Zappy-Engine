@@ -6,8 +6,9 @@
 */
 
 #include "EventManager.hpp"
-#include "Engine/Event/KeyEvent.hpp"
 #include "Error.hpp"
+
+#include <Engine/Event/KeyEvent.hpp>
 
 /**
  * public
@@ -70,6 +71,11 @@ void zap::EventManager::keyCallback(WindowPtr UNUSED win, const int key, const i
         }
         case GLFW_RELEASE: {
             const KeyReleasedEvent e(key);
+            _dispatcher.dispatch(e);
+            break;
+        }
+        case GLFW_REPEAT: {
+            const KeyHeldEvent e(key);
             _dispatcher.dispatch(e);
             break;
         }

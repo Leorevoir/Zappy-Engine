@@ -25,9 +25,9 @@ class CameraBase
     public:
         virtual ~CameraBase() = default;
 
-    protected:
         enum Direction { FORWARD, BACKWARD, LEFT, RIGHT };
 
+    protected:
         static constexpr f32 YAW = -90.0f;
         static constexpr f32 PITCH = 0.0f;
         static constexpr f32 SPEED = 2.5f;
