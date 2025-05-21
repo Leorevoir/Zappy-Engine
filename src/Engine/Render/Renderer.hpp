@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "Engine/Render/Quad.hpp"
 #include "Engine/Render/Texture.hpp"
 #include "Engine/Shader/Shader.hpp"
 #include "GLEngineTypes.hpp"
@@ -18,7 +17,6 @@
 namespace zap {
 
 using ShaderPtr = std::unique_ptr<Shader>;
-using QuadPtr = std::unique_ptr<Quad>;
 using TexturePtr = std::unique_ptr<Texture>;
 
 /**
@@ -36,7 +34,6 @@ class Renderer : public abstract::NonCopyable
     private:
         static WindowPtr _window;
         static ShaderPtr _shader;
-        static QuadPtr _quad;
         static TexturePtr _texture;
 
         static u32 VBO;

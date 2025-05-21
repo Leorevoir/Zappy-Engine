@@ -45,6 +45,11 @@ add_subdirectory(external/glad/cmake EXCLUDE_FROM_ALL)
 glad_add_library(glad STATIC API gl:core=3.3)
 
 ########################################
+# NOTE: Assimp configuration
+########################################
+add_subdirectory(external/assimp EXCLUDE_FROM_ALL)
+
+########################################
 # NOTE: Zappy graphical API
 ########################################
 file(GLOB_RECURSE SOURCES "src/*.cpp")
