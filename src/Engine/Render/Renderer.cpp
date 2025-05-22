@@ -6,8 +6,6 @@
 */
 
 #include "Renderer.hpp"
-#include "Engine/Event/EventManager.hpp"
-#include "Engine/Event/KeyEvent.hpp"
 #include "Error.hpp"
 #include "Filename.hpp"
 #include "Macro.hpp"
@@ -23,36 +21,6 @@
  */
 #define ZAP_MAX_OBJECTS_AMOUNT 100000
 
-void zap::Renderer::_register_scroll_event(GLFWwindow UNUSED *window, double UNUSED xoffset, double yoffset)
-{
-    _camera->mouseScroll(static_cast<float>(yoffset));
-}
-
-void zap::Renderer::_register_moved_event(GLFWwindow UNUSED *window, double xposIn, double yposIn)
-{
-    static bool is_first = true;
-
-    static zap::f32 last_x = 0.0f;
-    static zap::f32 last_y = 0.0f;
-
-    const zap::f32 xpos = static_cast<float>(xposIn);
-    const zap::f32 ypos = static_cast<float>(yposIn);
-
-    if (is_first) {
-        last_x = xpos;
-        last_y = ypos;
-        is_first = false;
-    }
-
-    const zap::f32 xoffset = xpos - last_x;
-    const zap::f32 yoffset = last_y - ypos;
-
-    last_x = xpos;
-    last_y = ypos;
-
-    _camera->mouseMoved(xoffset, yoffset);
-}
-
 /**
 * @brief Renderer::initialize
 * @details initialize the renderer with a window (to be rendered to)
@@ -66,31 +34,6 @@ void zap::Renderer::initialize(WindowPtr window)
     _planet_shader = std::make_shared<Shader>(Filename::getPath("assets/shaders/planet.vert"), Filename::getPath("assets/shaders/planet.frag"));
     _asteroid_model = std::make_shared<Model>(Filename::getPath("assets/objects/rock/rock.obj"));
     _planet_model = std::make_shared<Model>(Filename::getPath("assets/objects/planet/planet.obj"));
-
-    glfwSetCursorPosCallback(_window, [](GLFWwindow *window, double xposIn, double yposIn) { _register_moved_event(window, xposIn, yposIn); });
-    glfwSetScrollCallback(_window, [](GLFWwindow *window, double xoffset, double yoffset) { _register_scroll_event(window, xoffset, yoffset); });
-
-    EventManager::subscribe(EventType::KeyHeld, [&](const IEvent &e) {
-        const KeyHeldEvent &keyEvent = static_cast<const KeyHeldEvent &>(e);
-
-        std::cout << "delta time: " << core::Timer::getDeltaTime() << std::endl;
-        switch (keyEvent.getKeyCode()) {
-            case GLFW_KEY_W:
-                _camera->keyPressed(Camera::Direction::FORWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-                break;
-            case GLFW_KEY_S:
-                _camera->keyPressed(Camera::Direction::BACKWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-                break;
-            case GLFW_KEY_A:
-                _camera->keyPressed(Camera::Direction::LEFT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-                break;
-            case GLFW_KEY_D:
-                _camera->keyPressed(Camera::Direction::RIGHT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-                break;
-            default:
-                break;
-        }
-    });
 
     /**
      * WARN: ugly

@@ -16,9 +16,9 @@ class Camera final : public abstract::CameraBase
 
         ~Camera() override = default;
 
-        void keyPressed(const Direction direction, const float dt) noexcept;
-        void mouseMoved(const float x, const float y, const GLboolean constrainPitch = true) noexcept;
-        void mouseScroll(const float y) noexcept;
+        void keyPressed(const Direction direction, const f32 dt) noexcept override;
+        void mouseMoved(const f32 x, const f32 y, const GLboolean constrainPitch) noexcept override;
+        void mouseScroll(const f32 y) noexcept override;
 
         [[nodiscard]] glm::mat4 getViewMatrix() const noexcept;
 

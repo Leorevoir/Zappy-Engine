@@ -6,6 +6,7 @@
 */
 
 #include "EventManager.hpp"
+#include "Engine/Event/MouseEvent.hpp"
 #include "Error.hpp"
 
 #include <Engine/Event/KeyEvent.hpp>
@@ -26,6 +27,8 @@ void zap::EventManager::initialize(WindowPtr window)
         throw exception::Error("EventManager::init", "cannot initialize EventManager with a NULL WindowPtr");
     }
     glfwSetKeyCallback(_window, keyCallback);
+    glfwSetCursorPosCallback(_window, cursorCallback);
+    glfwSetScrollCallback(_window, scrollCallback);
 }
 
 /**
@@ -82,4 +85,28 @@ void zap::EventManager::keyCallback(WindowPtr UNUSED win, const int key, const i
         default:
             break;
     }
+}
+
+/**
+* @brief EventManager::cursorCallback - OpenGL entry-point
+* @details callback for the cursor event (called by OpenGL)
+* @return void
+*/
+void zap::EventManager::cursorCallback(WindowPtr UNUSED win, double xposIn, double yposIn) noexcept
+{
+    const MouseMovedEvent e({xposIn, yposIn});
+
+    _dispatcher.dispatch(e);
+}
+
+/**
+* @brief EventManager::scrollCallback - OpenGL entry-point
+* @details callback for the scroll event (called by OpenGL)
+* @return void
+*/
+void zap::EventManager::scrollCallback(WindowPtr UNUSED win, double xoffset, double yoffset) noexcept
+{
+    const MouseScrolledEvent e({static_cast<float>(xoffset), static_cast<float>(yoffset)});
+
+    _dispatcher.dispatch(e);
 }

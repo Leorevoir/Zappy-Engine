@@ -27,7 +27,13 @@ class CameraBase
 
         enum Direction { FORWARD, BACKWARD, LEFT, RIGHT };
 
+        virtual void keyPressed(const Direction direction, const f32 dt) noexcept = 0;
+        virtual void mouseMoved(const f32 x, const f32 y, const GLboolean constrainPitch = true) noexcept = 0;
+        virtual void mouseScroll(const f32 y) noexcept = 0;
+
     protected:
+        void _create_camera_events() noexcept;
+
         static constexpr f32 YAW = -90.0f;
         static constexpr f32 PITCH = 0.0f;
         static constexpr f32 SPEED = 2.5f;

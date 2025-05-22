@@ -33,6 +33,8 @@ class EventManager final : public abstract::NonCopyable
         static WindowPtr _window;
 
         static void keyCallback(WindowPtr UNUSED win, const int key, const int UNUSED scancode, const int action, const int UNUSED mods) noexcept;
+        static void cursorCallback(WindowPtr UNUSED win, double xposIn, double yposIn) noexcept;
+        static void scrollCallback(WindowPtr UNUSED win, double xoffset, double yoffset) noexcept;
 };
 
 }// namespace zap

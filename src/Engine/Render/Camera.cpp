@@ -30,6 +30,7 @@ zap::Camera::Camera(const glm::vec3 &pos, const glm::vec3 &up, const zap::f32 ya
     _yaw = yaw;
     _pitch = pitch;
     _update_camera_vectors();
+    _create_camera_events();
 }
 
 void zap::Camera::keyPressed(const Direction direction, const f32 dt) noexcept
