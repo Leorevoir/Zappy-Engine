@@ -47,6 +47,7 @@ glad_add_library(glad STATIC API gl:core=3.3)
 ########################################
 # NOTE: Assimp configuration
 ########################################
+set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE)
 add_subdirectory(external/assimp EXCLUDE_FROM_ALL)
 
 ########################################
@@ -66,46 +67,46 @@ target_link_libraries(zappy PRIVATE
     glm::glm
     assimp::assimp
 )
-# target_compile_options(zappy PRIVATE
-#     # INFO: classic yutsu warnings
-#     -Wall
-#     -Wextra
-#     -Werror
-#     -pedantic
-#
-#     # INFO: type safety & conversions
-#     -Wconversion
-#     -Wsign-conversion
-#     -Wfloat-equal # << WARN: PURE HATE flag lol
-#
-#     # INFO: code correctness
-#     -Wshadow
-#     -Wnull-dereference
-#     -Wundef
-#     -Wuninitialized
-#     -Winit-self
-#     -Wredundant-decls
-#
-#     # INFO: code hygiene
-#     -Wcast-align
-#     -Wcast-qual
-#     -Wmissing-declarations
-#     -Woverloaded-virtual
-#     -Wnon-virtual-dtor
-#
-#     # INFO: logic bugs & bad practices
-#     # -Wduplicated-cond << not on clang
-#     # -Wduplicated-branches << not on clang
-#     # -Wlogical-op << not on clang
-#     -Wswitch-default
-#     # -Wswitch-enum << commented because i dont think this flag is pertinent (we have default: break...)
-#     # -Wuseless-cast << not on clang
-#
-#     # INFO: prevent common portability issues
-#     -Wdouble-promotion
-#     -Wformat=2
-#     -Wwrite-strings
-# )
+target_compile_options(zappy PRIVATE
+    # INFO: classic yutsu warnings
+    -Wall
+    -Wextra
+    -Werror
+    -pedantic
+
+    # INFO: type safety & conversions
+    -Wconversion
+    -Wsign-conversion
+    -Wfloat-equal # << WARN: PURE HATE flag lol
+
+    # INFO: code correctness
+    -Wshadow
+    -Wnull-dereference
+    -Wundef
+    -Wuninitialized
+    -Winit-self
+    -Wredundant-decls
+
+    # INFO: code hygiene
+    -Wcast-align
+    -Wcast-qual
+    -Wmissing-declarations
+    # -Woverloaded-virtual << commented because it is not compatible for GCC (only G++)
+    # -Wnon-virtual-dtor   << commented because it is not compatible for GCC (only G++)
+
+    # INFO: logic bugs & bad practices
+    # -Wduplicated-cond << not on clang
+    # -Wduplicated-branches << not on clang
+    # -Wlogical-op << not on clang
+    -Wswitch-default
+    # -Wswitch-enum << commented because i dont think this flag is pertinent (we have default: break...)
+    # -Wuseless-cast << not on clang
+
+    # INFO: prevent common portability issues
+    -Wdouble-promotion
+    -Wformat=2
+    -Wwrite-strings
+)
 
 # << NOTE: this is a workaround bc glad compilation is strange so we assure that it is compiled BEFORE zappy
 add_dependencies(zappy glad)

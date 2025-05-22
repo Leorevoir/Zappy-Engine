@@ -9,7 +9,23 @@
 
 #include "GLEngineTypes.hpp"
 
+// clang-format off
+#if defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined(__GNUC__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wsign-conversion"
+#endif
+
 #include <glm/mat4x4.hpp>
+
+#if defined(__clang__)
+    #pragma clang diagnostic push
+#elif defined(__GNUC__)
+    #pragma GCC diagnostic pop
+#endif
+// clang-format on
 
 #include <vector>
 
