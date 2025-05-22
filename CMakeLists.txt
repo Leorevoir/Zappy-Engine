@@ -29,6 +29,25 @@ option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 option(GLFW_INSTALL OFF)
+
+if(DEFINED ENV{XDG_SESSION_TYPE})
+    if($ENV{XDG_SESSION_TYPE} STREQUAL "wayland")
+        message(STATUS "Detected Wayland session")
+        set(GLFW_BUILD_WAYLAND ON)
+        set(GLFW_BUILD_X11 OFF)
+    elseif($ENV{XDG_SESSION_TYPE} STREQUAL "x11")
+        message(STATUS "Detected X11 session")
+        set(GLFW_BUILD_WAYLAND OFF)
+        set(GLFW_BUILD_X11 ON)
+    endif()
+endif()
+
+if(NOT DEFINED GLFW_BUILD_WAYLAND AND NOT DEFINED GLFW_BUILD_X11)
+    message(WARNING "Unknown session type; defaulting to X11")
+    set(GLFW_BUILD_X11 ON)
+    set(GLFW_BUILD_WAYLAND OFF)
+endif()
+
 add_subdirectory(external/glfw EXCLUDE_FROM_ALL)
 
 ########################################
