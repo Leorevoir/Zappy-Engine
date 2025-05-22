@@ -1,2 +1,4 @@
-*.frag linguist-language=GLSL
-*.vert linguist-language=GLSL
+*.frag linguist-language=glsl
+*.vert linguist-language=glsl
+*.cpp linguist-language=hpp
+*.hpp linguist-language=cpp
