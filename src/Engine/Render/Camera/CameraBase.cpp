@@ -6,18 +6,20 @@
 
 #include <Engine/Core/Timer.hpp>
 
-#include <iostream>
-
 /**
 * protected
 */
 
+/**
+* @brief abstract::CameraBase::_create_camera_events
+* @details initialize all the camera-related events
+* @return void
+*/
 void zap::abstract::CameraBase::_create_camera_events() noexcept
 {
     EventManager::subscribe(EventType::KeyHeld, [&](const IEvent &e) {
         const KeyHeldEvent &keyEvent = static_cast<const KeyHeldEvent &>(e);
 
-        std::cout << "delta time: " << core::Timer::getDeltaTime() << std::endl;
         switch (keyEvent.getKeyCode()) {
             case GLFW_KEY_W:
                 keyPressed(Direction::FORWARD, static_cast<f32>(core::Timer::getDeltaTime()));

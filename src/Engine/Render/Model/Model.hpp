@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
 
-#include <Engine/Render/Mesh.hpp>
+#include <Engine/Render/Model/Mesh.hpp>
 #include <Engine/Shader/Shader.hpp>
 
 #include <vector>

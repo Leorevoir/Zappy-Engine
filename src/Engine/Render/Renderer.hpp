@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include "Engine/Render/Camera.hpp"
-#include "GLEngineTypes.hpp"
-#include "Model.hpp"
-#include "NonCopyable.hpp"
+#include <Engine/Render/Camera/Camera.hpp>
+#include <Engine/Render/Model/Model.hpp>
 #include <Engine/Shader/Shader.hpp>
+#include <NonCopyable.hpp>
 
 #include <memory>
 

@@ -6,12 +6,11 @@
 */
 
 #include "Renderer.hpp"
-#include "Error.hpp"
 #include "Filename.hpp"
 #include "Macro.hpp"
 
 #include <Engine/Core/Timer.hpp>
-#include <iostream>
+
 /**
 * public
 */

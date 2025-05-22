@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Texture.hpp"
-#include "Vertex.hpp"
+#include <Engine/Render/Model/Texture.hpp>
+#include <Engine/Render/Model/Vertex.hpp>
 
 #include <Engine/Shader/Shader.hpp>
 
