@@ -6,6 +6,8 @@
 */
 
 #include "Renderer.hpp"
+#include "Engine/Event/EventManager.hpp"
+#include "Engine/Event/KeyEvent.hpp"
 #include "Error.hpp"
 #include "Filename.hpp"
 #include "Macro.hpp"
@@ -51,19 +53,6 @@ void zap::Renderer::_register_moved_event(GLFWwindow UNUSED *window, double xpos
     _camera->mouseMoved(xoffset, yoffset);
 }
 
-void zap::Renderer::_register_key_event(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        _camera->keyPressed(Camera::Direction::FORWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-    } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        _camera->keyPressed(Camera::Direction::BACKWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-    } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        _camera->keyPressed(Camera::Direction::LEFT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-    } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        _camera->keyPressed(Camera::Direction::RIGHT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
-    }
-}
-
 /**
 * @brief Renderer::initialize
 * @details initialize the renderer with a window (to be rendered to)
@@ -80,7 +69,28 @@ void zap::Renderer::initialize(WindowPtr window)
 
     glfwSetCursorPosCallback(_window, [](GLFWwindow *window, double xposIn, double yposIn) { _register_moved_event(window, xposIn, yposIn); });
     glfwSetScrollCallback(_window, [](GLFWwindow *window, double xoffset, double yoffset) { _register_scroll_event(window, xoffset, yoffset); });
-    // glfwSetKeyCallback(_window, [](GLFWwindow *window, int key, int scancode, int action, int mods) { _register_key_event(window, key, scancode, action, mods); });
+
+    EventManager::subscribe(EventType::KeyHeld, [&](const IEvent &e) {
+        const KeyHeldEvent &keyEvent = static_cast<const KeyHeldEvent &>(e);
+
+        std::cout << "delta time: " << core::Timer::getDeltaTime() << std::endl;
+        switch (keyEvent.getKeyCode()) {
+            case GLFW_KEY_W:
+                _camera->keyPressed(Camera::Direction::FORWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
+                break;
+            case GLFW_KEY_S:
+                _camera->keyPressed(Camera::Direction::BACKWARD, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
+                break;
+            case GLFW_KEY_A:
+                _camera->keyPressed(Camera::Direction::LEFT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
+                break;
+            case GLFW_KEY_D:
+                _camera->keyPressed(Camera::Direction::RIGHT, static_cast<zap::f32>(zap::core::Timer::getDeltaTime()));
+                break;
+            default:
+                break;
+        }
+    });
 
     /**
      * WARN: ugly

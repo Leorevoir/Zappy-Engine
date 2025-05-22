@@ -70,6 +70,7 @@ void zap::Window::create(const math::Vector2<int> &size, const char *title)
     }
     glfwMakeContextCurrent(_handle);
     glfwSetFramebufferSizeCallback(_handle, c_framebuffer_size_callback);
+    glfwSetInputMode(_handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     if (!gladLoadGL(glfwGetProcAddress)) {
         throw exception::Error("Window::create", "failed to initialize Glad");
     }
