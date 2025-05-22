@@ -58,12 +58,12 @@ void zap::Mesh::draw(zap::Shader &shader)
             number = std::to_string(height++);
         }
 
-        glUniform1i(glGetUniformLocation(shader.getProgram(), (name + number).c_str()), i);
+        glUniform1i(glGetUniformLocation(shader.getProgram(), (name + number).c_str()), static_cast<i32>(i));
         glBindTexture(GL_TEXTURE_2D, _textures[i]._id);
     }
 
     glBindVertexArray(_VAO);
-    glDrawElements(GL_TRIANGLES, static_cast<u32>(_indices.size()), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, static_cast<i32>(_indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
     glActiveTexture(GL_TEXTURE0);
@@ -89,10 +89,10 @@ void zap::Mesh::_initialize()
 
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
 
-    glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(Vertex), &_vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(_vertices.size() * sizeof(Vertex)), &_vertices[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), &_indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(_indices.size() * sizeof(unsigned int)), &_indices[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) 0);

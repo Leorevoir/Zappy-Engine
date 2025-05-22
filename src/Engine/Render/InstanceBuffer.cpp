@@ -15,7 +15,7 @@ zap::InstanceBuffer::InstanceBuffer(const std::vector<glm::mat4> &transforms) no
 {
     glGenBuffers(1, &_bufferID);
     glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
-    glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(transforms.size() * sizeof(glm::mat4)), transforms.data(), GL_STATIC_DRAW);
 }
 
 zap::InstanceBuffer::~InstanceBuffer()

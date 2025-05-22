@@ -10,13 +10,31 @@
 #include <Error.hpp>
 #include <GLEngineTypes.hpp>
 
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+// clang-format off
+#if defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wsign-conversion"
+    #pragma clang diagnostic ignored "-Warray-bounds"
+#elif defined(__GNUC__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wsign-conversion"
+    #pragma GCC diagnostic ignored "-Warray-bounds"
+#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
+
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+
+#if defined(__clang__)
+    #pragma clang diagnostic push
+#elif defined(__GNUC__)
+    #pragma GCC diagnostic pop
+#endif
+// clang-format on
 
 #include <Engine/Render/Model/Mesh.hpp>
 #include <Engine/Shader/Shader.hpp>
