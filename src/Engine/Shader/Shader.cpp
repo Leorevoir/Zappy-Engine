@@ -1,5 +1,12 @@
-#include "Shader.hpp"
-#include "Error.hpp"
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Shader.cpp
+*/
+
+#include <Engine/Shader/Shader.hpp>
+#include <Error.hpp>
 
 #include <fstream>
 #include <iostream>

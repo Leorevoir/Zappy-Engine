@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Vertex.hpp
+*/
+
 #pragma once
 
 #define ZAP_MAX_BONE_INFLUENCE 4

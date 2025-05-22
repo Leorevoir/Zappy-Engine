@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** ShaderBase.hpp
+*/
+
 #pragma once
 
 #include "GLEngineTypes.hpp"

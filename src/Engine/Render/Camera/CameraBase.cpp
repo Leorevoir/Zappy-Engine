@@ -1,4 +1,11 @@
-#include "CameraBase.hpp"
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** CameraBase.hpp
+*/
+
+#include <Engine/Render/Camera/CameraBase.hpp>
 
 #include <Engine/Event/EventManager.hpp>
 #include <Engine/Event/KeyEvent.hpp>

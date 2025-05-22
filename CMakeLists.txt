@@ -52,7 +52,7 @@ add_subdirectory(external/assimp EXCLUDE_FROM_ALL)
 ########################################
 # NOTE: Zappy graphical API
 ########################################
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 add_executable(zappy ${SOURCES})
 target_include_directories(zappy PRIVATE 
     ${CMAKE_SOURCE_DIR}/src

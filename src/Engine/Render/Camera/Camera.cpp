@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Camera.cpp
+*/
+
 #include "Camera.hpp"
 
 // clang-format off

@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Model.hpp
+*/
+
 #pragma once
 
 #include <Error.hpp>
@@ -30,9 +37,9 @@ class Model final
 
     private:
         void _initialize(const std::string &path);
-        void _traverse_node_hierarchy(aiNode *node, const aiScene *scene);
-        [[nodiscard]] Mesh _convert_mesh_data(aiMesh *mesh, const aiScene *scene);
-        std::vector<Texture> _load_material_textures(aiMaterial *mat, const aiTextureType type, const std::string type_name);
+        void _traverse_node_hierarchy(const aiNode *node, const aiScene *scene);
+        [[nodiscard]] const Mesh _convert_mesh_data(const aiMesh *mesh, const aiScene *scene) noexcept;
+        [[nodiscard]] const std::vector<Texture> _load_material_textures(const aiMaterial *mat, const aiTextureType type, const std::string type_name);
 
         std::string _directory;
 };

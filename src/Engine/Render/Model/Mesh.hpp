@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Mesh.hpp
+*/
+
 #pragma once
 
 #include <Engine/Render/Model/Texture.hpp>
@@ -16,7 +23,7 @@ class Mesh final
         std::vector<Texture> _textures;
         u32 _VAO;
 
-        explicit Mesh(std::vector<Vertex> vertices, std::vector<u32> indices, std::vector<Texture> textures);
+        explicit Mesh(const std::vector<Vertex> vertices, const std::vector<u32> indices, const std::vector<Texture> textures);
 
         void draw(Shader &shader);
 

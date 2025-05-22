@@ -1,4 +1,11 @@
-#include "Mesh.hpp"
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Mesh.cpp
+*/
+
+#include <Engine/Render/Model/Mesh.hpp>
 
 #include <glad/gl.h>
 
@@ -6,7 +13,14 @@
 * public
 */
 
-zap::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<u32> indices, std::vector<Texture> textures)
+/**
+ * @brief Mesh::Mesh
+ * @details __ctor__
+ * @param vertices the vertices of the mesh
+ * @param indices the indices of the mesh
+ * @return [this]
+ */
+zap::Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<u32> indices, const std::vector<Texture> textures)
 {
     _vertices = vertices;
     _indices = indices;
@@ -15,6 +29,12 @@ zap::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<u32> indices, std::vec
     _initialize();
 }
 
+/**
+* @brief Mesh::draw
+* @details draw the mesh with the given shader
+* @param shader the shader to use
+* @return void
+*/
 void zap::Mesh::draw(zap::Shader &shader)
 {
     u32 diffuse = 1;
@@ -53,6 +73,11 @@ void zap::Mesh::draw(zap::Shader &shader)
 * private
 */
 
+/**
+* @brief Mesh::_initialize
+* @details initialize the mesh by generating the VAO, VBO and EBO
+* @return void
+*/
 void zap::Mesh::_initialize()
 {
     glGenVertexArrays(1, &_VAO);

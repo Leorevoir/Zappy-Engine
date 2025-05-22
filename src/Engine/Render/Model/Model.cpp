@@ -1,6 +1,13 @@
-#include "Model.hpp"
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Model.cpp
+*/
 
-#include "Error.hpp"
+#include <Engine/Render/Model/Model.hpp>
+
+#include <Error.hpp>
 
 /**
 * public
@@ -11,6 +18,12 @@ zap::Model::Model(const std::string &path)
     _initialize(path);
 }
 
+/**
+* @brief Mode::draw
+* @details draws the model using the given shader.
+* @param shader the shader to use for drawing.
+* @return void
+*/
 void zap::Model::draw(Shader &shader)
 {
     for (u32 i = 0; i < _meshes.size(); ++i) {
@@ -22,6 +35,12 @@ void zap::Model::draw(Shader &shader)
 * private
 */
 
+/**
+* @brief Model::_initialize
+* @details loads the model from the given path and initializes the meshes and textures.
+* @param path the path to the model file.
+* @return void
+*/
 void zap::Model::_initialize(const std::string &path)
 {
     Assimp::Importer importer;
@@ -35,10 +54,17 @@ void zap::Model::_initialize(const std::string &path)
     _traverse_node_hierarchy(scene->mRootNode, scene);
 }
 
-void zap::Model::_traverse_node_hierarchy(aiNode *node, const aiScene *scene)
+/**
+* @brief Model::_traverse_node_hierarchy
+* @details traverses the node hierarchy of the model and loads the meshes.
+* @param node the current node.
+* @param scene the scene containing the model data.
+* @return void
+*/
+void zap::Model::_traverse_node_hierarchy(const aiNode *node, const aiScene *scene)
 {
     for (u32 i = 0; i < node->mNumMeshes; ++i) {
-        aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+        const aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
         _meshes.push_back(_convert_mesh_data(mesh, scene));
     }
@@ -48,86 +74,90 @@ void zap::Model::_traverse_node_hierarchy(aiNode *node, const aiScene *scene)
     }
 }
 
-zap::Mesh zap::Model::_convert_mesh_data(aiMesh *mesh, const aiScene *scene)
+/**
+* @brief Model::_create_vertex
+* @details creates a vertex from the given mesh and index.
+* @param mesh the mesh containing the vertex data.
+* @param i the index of the vertex in the mesh.
+* @return the created vertex.
+*/
+static const zap::Vertex _create_vertex(const aiMesh *mesh, const zap::u32 i) noexcept
+{
+    zap::Vertex vertex;
+
+    vertex._position = {mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
+    if (mesh->HasNormals()) {
+        vertex._normal = {mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z};
+    }
+    if (mesh->mTextureCoords[0]) {
+        vertex._coords = {mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y};
+        vertex._tangent = {mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z};
+        vertex._bitangent = {mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z};
+        return vertex;
+    }
+    vertex._coords = {0.0f, 0.0f};
+    return vertex;
+}
+
+/**
+* @brief Model::_retrieve_indices
+* @details retrieves the indices from the given mesh and stores them in the provided vector.
+* @param mesh the mesh containing the index data.
+* @param indices the vector to store the indices.
+* @return void
+*/
+static void _retrieve_indices(const aiMesh *mesh, std::vector<zap::u32> &indices) noexcept
+{
+    for (zap::u32 i = 0; i < mesh->mNumFaces; ++i) {
+        const aiFace face = mesh->mFaces[i];
+
+        for (zap::u32 j = 0; j < face.mNumIndices; ++j) {
+            indices.push_back(face.mIndices[j]);
+        }
+    }
+}
+
+/**
+* @brief Mode::_convert_mesh_data
+* @details converts the mesh data from Assimp format to the internal format used by the engine.
+* @param mesh the mesh to convert.
+* @param scene the scene containing the model data.
+* @return the converted mesh.
+*/
+const zap::Mesh zap::Model::_convert_mesh_data(const aiMesh *mesh, const aiScene *scene) noexcept
 {
     std::vector<Texture> textures;
     std::vector<Vertex> vertices;
     std::vector<u32> indices;
 
-    // walk through each of the mesh's vertices
     for (u32 i = 0; i < mesh->mNumVertices; ++i) {
-        Vertex vertex;
-        glm::vec3
-            vector;// we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-        // positions
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vertex._position = vector;
-        // normals
-        if (mesh->HasNormals()) {
-            vector.x = mesh->mNormals[i].x;
-            vector.y = mesh->mNormals[i].y;
-            vector.z = mesh->mNormals[i].z;
-            vertex._normal = vector;
-        }
-        // texture coordinates
-        if (mesh->mTextureCoords[0])// does the mesh contain texture coordinates?
-        {
-            glm::vec2 vec;
-            // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
-            // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-            vec.x = mesh->mTextureCoords[0][i].x;
-            vec.y = mesh->mTextureCoords[0][i].y;
-            vertex._coords = vec;
-            // tangent
-            vector.x = mesh->mTangents[i].x;
-            vector.y = mesh->mTangents[i].y;
-            vector.z = mesh->mTangents[i].z;
-            vertex._tangent = vector;
-            // bitangent
-            vector.x = mesh->mBitangents[i].x;
-            vector.y = mesh->mBitangents[i].y;
-            vector.z = mesh->mBitangents[i].z;
-            vertex._bitangent = vector;
-        } else
-            vertex._coords = glm::vec2(0.0f, 0.0f);
+        vertices.push_back(_create_vertex(mesh, i));
+    }
 
-        vertices.push_back(vertex);
-    }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-    for (u32 i = 0; i < mesh->mNumFaces; i++) {
-        aiFace face = mesh->mFaces[i];
-        // retrieve all indices of the face and store them in the indices vector
-        for (u32 j = 0; j < face.mNumIndices; j++)
-            indices.push_back(face.mIndices[j]);
-    }
-    // process materials
+    _retrieve_indices(mesh, indices);
+
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-    // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-    // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-    // Same applies to other texture as the following list summarizes:
-    // diffuse: texture_diffuseN
-    // specular: texture_specularN
-    // normal: texture_normalN
 
-    // 1. diffuse maps
-    std::vector<Texture> diffuseMaps = _load_material_textures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    // 2. specular maps
-    std::vector<Texture> specularMaps = _load_material_textures(material, aiTextureType_SPECULAR, "texture_specular");
-    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-    // 3. normal maps
-    std::vector<Texture> normalMaps = _load_material_textures(material, aiTextureType_HEIGHT, "texture_normal");
-    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-    // 4. height maps
-    std::vector<Texture> heightMaps = _load_material_textures(material, aiTextureType_AMBIENT, "texture_height");
-    textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+    const auto _lambda_load = [&](const aiTextureType type, const std::string &type_name) {
+        const std::vector<Texture> maps = _load_material_textures(material, type, type_name);
 
-    // return a mesh object created from the extracted mesh data
+        textures.insert(textures.end(), maps.begin(), maps.end());
+    };
+
+    _lambda_load(aiTextureType_DIFFUSE, "texture_diffuse");
+    _lambda_load(aiTextureType_SPECULAR, "texture_specular");
+    _lambda_load(aiTextureType_HEIGHT, "texture_normal");
+    _lambda_load(aiTextureType_AMBIENT, "texture_height");
     return Mesh(vertices, indices, textures);
 }
 
+/**
+* @brief Model::_create_texture_from_file
+* @details creates a texture from the given file path and directory.
+* @param path the path to the texture file.
+* @param directory the directory containing the texture file.
+* @return the created texture ID.
+*/
 static zap::u32 _create_texture_from_file(const char *RESTRICT path, const std::string &directory)
 {
     const std::string filename = directory + '/' + std::string(path);
@@ -173,7 +203,15 @@ static zap::u32 _create_texture_from_file(const char *RESTRICT path, const std::
     return texture_id;
 }
 
-std::vector<zap::Texture> zap::Model::_load_material_textures(aiMaterial *mat, const aiTextureType type, const std::string type_name)
+/**
+* @brief Model::_load_material_textures
+* @details loads the textures from the material and stores them in the provided vector.
+* @param mat the material containing the texture data.
+* @param type the type of texture to load.
+* @param type_name the name of the texture type.
+* @return the loaded textures.
+*/
+const std::vector<zap::Texture> zap::Model::_load_material_textures(const aiMaterial *mat, const aiTextureType type, const std::string type_name)
 {
     std::vector<Texture> textures;
 

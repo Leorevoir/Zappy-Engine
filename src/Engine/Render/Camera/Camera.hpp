@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** Zappy
+** File description:
+** Camera.hpp
+*/
+
 #pragma once
 
 #include "CameraBase.hpp"
