@@ -10,6 +10,7 @@
 #include "Macro.hpp"
 
 #include <Engine/Core/Timer.hpp>
+#include <Engine/Render/InstanceBuffer.hpp>
 
 /**
 * public
@@ -19,6 +20,38 @@
  * @brief max amount of objects to be rendered
  */
 #define ZAP_MAX_OBJECTS_AMOUNT 100000
+
+const std::vector<glm::mat4> generateAsteroidTransforms(zap::u32 count, const float radius, const float offset)
+{
+    std::vector<glm::mat4> matrices;
+
+    matrices.reserve(count);
+    srand(static_cast<zap::u32>(zap::core::Timer::getTotalTime()));
+
+    for (zap::u32 i = 0; i < count; ++i) {
+
+        glm::mat4 model = glm::mat4(1.0f);
+
+        const float angle = (float) i / (float) count * 360.0f;
+        float displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
+        const float x = sin(angle) * radius + displacement;
+        displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
+        const float y = displacement * 0.4f;
+        displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
+        const float z = cos(angle) * radius + displacement;
+
+        model = glm::translate(model, glm::vec3(x, y, z));
+
+        const float scale = static_cast<float>((rand() % 20) / 100.0 + 0.05);
+        model = glm::scale(model, glm::vec3(scale));
+
+        const float rotation_angle = static_cast<float>(rand() % 360);
+        model = glm::rotate(model, glm::radians(rotation_angle), glm::vec3(0.4f, 0.6f, 0.8f));
+
+        matrices.push_back(model);
+    }
+    return matrices;
+}
 
 /**
 * @brief Renderer::initialize
@@ -37,55 +70,11 @@ void zap::Renderer::initialize(WindowPtr window)
     /**
      * WARN: ugly
      */
-
-    glm::mat4 *model_matrices;
-    model_matrices = new glm::mat4[ZAP_MAX_OBJECTS_AMOUNT];
-    srand(static_cast<u32>(core::Timer::getTotalTime()));
-    zap::f32 radius = 150.0;
-    zap::f32 offset = 25.0f;
-    for (u32 i = 0; i < ZAP_MAX_OBJECTS_AMOUNT; i++) {
-        glm::mat4 model = glm::mat4(1.0f);
-        zap::f32 angle = (float) i / (float) ZAP_MAX_OBJECTS_AMOUNT * 360.0f;
-        zap::f32 displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
-        zap::f32 x = sin(angle) * radius + displacement;
-        displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
-        zap::f32 y = displacement * 0.4f;
-        displacement = (rand() % (int) (2 * offset * 100)) / 100.0f - offset;
-        zap::f32 z = cos(angle) * radius + displacement;
-        model = glm::translate(model, glm::vec3(x, y, z));
-
-        zap::f32 scale = static_cast<float>((rand() % 20) / 100.0 + 0.05);
-        model = glm::scale(model, glm::vec3(scale));
-
-        zap::f32 rotation_angle = static_cast<float>((rand() % 360));
-        model = glm::rotate(model, rotation_angle, glm::vec3(0.4f, 0.6f, 0.8f));
-
-        model_matrices[i] = model;
-    }
-
-    u32 buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, ZAP_MAX_OBJECTS_AMOUNT * sizeof(glm::mat4), &model_matrices[0], GL_STATIC_DRAW);
+    const auto matrices = generateAsteroidTransforms(ZAP_MAX_OBJECTS_AMOUNT, 150.0f, 25.0f);
+    InstanceBuffer instanceBuffer(matrices);
 
     for (u32 i = 0; i < _asteroid_model->_meshes.size(); ++i) {
-        u32 VAO = _asteroid_model->_meshes[i]._VAO;
-        glBindVertexArray(VAO);
-        glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) 0);
-        glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (sizeof(glm::vec4)));
-        glEnableVertexAttribArray(5);
-        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (2 * sizeof(glm::vec4)));
-        glEnableVertexAttribArray(6);
-        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (3 * sizeof(glm::vec4)));
-
-        glVertexAttribDivisor(3, 1);
-        glVertexAttribDivisor(4, 1);
-        glVertexAttribDivisor(5, 1);
-        glVertexAttribDivisor(6, 1);
-
-        glBindVertexArray(0);
+        instanceBuffer.bindToVAO(_asteroid_model->_meshes[i]._VAO);
     }
 }
 
