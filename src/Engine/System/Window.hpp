@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "GLEngineTypes.hpp"
+#include <GLEngineTypes.hpp>
 
-#include "Engine/Math/Vector2.hpp"
+#include <Engine/Math/Vector2.hpp>
 
 namespace zap {
 

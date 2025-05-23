@@ -5,7 +5,7 @@
 ** Timer.cpp
 */
 
-#include "Timer.hpp"
+#include <Engine/System/Timer.hpp>
 
 /**
 * public
@@ -14,9 +14,9 @@
 /**
 * @brief Timer::initialize
 * @details initialize the timer
-* @info called by core::Application
+* @return void
  */
-void zap::core::Timer::initialize() noexcept
+void zap::Timer::initialize() noexcept
 {
     if (!_initialized) {
         _lastFrameTime = glfwGetTime();
@@ -28,10 +28,9 @@ void zap::core::Timer::initialize() noexcept
 /**
 * @brief Timer::update
 * @details update the delta-time and fps
-* @info called by core::Application
 * @return void
 */
-void zap::core::Timer::update() noexcept
+void zap::Timer::update() noexcept
 {
     if (!_initialized) {
         initialize();
@@ -53,22 +52,22 @@ void zap::core::Timer::update() noexcept
  * public getters
  */
 
-zap::f64 zap::core::Timer::getDeltaTime() noexcept
+zap::f64 zap::Timer::getDeltaTime() noexcept
 {
     return _deltaTime;
 }
 
-zap::f64 zap::core::Timer::getFPS() noexcept
+zap::f64 zap::Timer::getFPS() noexcept
 {
     return _fps;
 }
 
-zap::f64 zap::core::Timer::getTimeScale() noexcept
+zap::f64 zap::Timer::getTimeScale() noexcept
 {
     return _timeScale;
 }
 
-zap::f64 zap::core::Timer::getTotalTime() noexcept
+zap::f64 zap::Timer::getTotalTime() noexcept
 {
     return glfwGetTime();
 }
@@ -77,7 +76,7 @@ zap::f64 zap::core::Timer::getTotalTime() noexcept
  * public setters
  */
 
-void zap::core::Timer::setTimeScale(const zap::u32 scale) noexcept
+void zap::Timer::setTimeScale(const zap::u32 scale) noexcept
 {
     if (scale > 0) {
         _timeScale = scale;
@@ -90,11 +89,11 @@ void zap::core::Timer::setTimeScale(const zap::u32 scale) noexcept
 * private
 */
 
-zap::f64 zap::core::Timer::_lastFrameTime = 0.0;
-zap::f64 zap::core::Timer::_deltaTime = 0.0;
-zap::f64 zap::core::Timer::_timeScale = 1.0;
-zap::f64 zap::core::Timer::_fpsUpdateInterval = 0.5;
-zap::f64 zap::core::Timer::_lastFpsUpdate = 0.0;
-zap::u32 zap::core::Timer::_frameCount = 0;
-zap::f64 zap::core::Timer::_fps = 0.0;
-bool zap::core::Timer::_initialized = false;
+zap::f64 zap::Timer::_lastFrameTime = 0.0;
+zap::f64 zap::Timer::_deltaTime = 0.0;
+zap::f64 zap::Timer::_timeScale = 1.0;
+zap::f64 zap::Timer::_fpsUpdateInterval = 0.5;
+zap::f64 zap::Timer::_lastFpsUpdate = 0.0;
+zap::u32 zap::Timer::_frameCount = 0;
+zap::f64 zap::Timer::_fps = 0.0;
+bool zap::Timer::_initialized = false;

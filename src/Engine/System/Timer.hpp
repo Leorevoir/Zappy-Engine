@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "GLEngineTypes.hpp"
-#include "NonCopyable.hpp"
+#include <GLEngineTypes.hpp>
+#include <NonCopyable.hpp>
 
-namespace zap::core {
+namespace zap {
 
 /**
 * @class Timer
@@ -41,4 +41,4 @@ class Timer : public abstract::NonCopyable
         static f64 _fps;
         static bool _initialized;
 };
-}// namespace zap::core
+}// namespace zap
