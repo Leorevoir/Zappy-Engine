@@ -10,8 +10,8 @@
 #include "GLEngineTypes.hpp"
 #include "Macro.hpp"
 
-#include <Engine/Core/Timer.hpp>
 #include <Engine/Render/InstanceBuffer.hpp>
+#include <Engine/System/Timer.hpp>
 
 /**
 * public
@@ -27,7 +27,7 @@ static const std::vector<glm::mat4> generateAsteroidTransforms(zap::u32 count, c
     std::vector<glm::mat4> matrices;
 
     matrices.reserve(count);
-    srand(static_cast<zap::u32>(zap::core::Timer::getTotalTime()));
+    srand(static_cast<zap::u32>(zap::Timer::getTotalTime()));
 
     for (zap::u32 i = 0; i < count; ++i) {
 

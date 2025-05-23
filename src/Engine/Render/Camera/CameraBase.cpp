@@ -11,7 +11,7 @@
 #include <Engine/Event/KeyEvent.hpp>
 #include <Engine/Event/MouseEvent.hpp>
 
-#include <Engine/Core/Timer.hpp>
+#include <Engine/System/Timer.hpp>
 
 /**
 * protected
@@ -29,16 +29,16 @@ void zap::abstract::CameraBase::_create_camera_events() noexcept
 
         switch (keyEvent.getKeyCode()) {
             case GLFW_KEY_W:
-                keyPressed(Direction::FORWARD, static_cast<f32>(core::Timer::getDeltaTime()));
+                keyPressed(Direction::FORWARD, static_cast<f32>(Timer::getDeltaTime()));
                 break;
             case GLFW_KEY_S:
-                keyPressed(Direction::BACKWARD, static_cast<f32>(core::Timer::getDeltaTime()));
+                keyPressed(Direction::BACKWARD, static_cast<f32>(Timer::getDeltaTime()));
                 break;
             case GLFW_KEY_A:
-                keyPressed(Direction::LEFT, static_cast<f32>(core::Timer::getDeltaTime()));
+                keyPressed(Direction::LEFT, static_cast<f32>(Timer::getDeltaTime()));
                 break;
             case GLFW_KEY_D:
-                keyPressed(Direction::RIGHT, static_cast<f32>(core::Timer::getDeltaTime()));
+                keyPressed(Direction::RIGHT, static_cast<f32>(Timer::getDeltaTime()));
                 break;
             default:
                 break;

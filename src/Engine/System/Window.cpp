@@ -5,9 +5,9 @@
 ** Window.cpp
 */
 
-#include "Window.hpp"
-#include "Error.hpp"
-#include "Macro.hpp"
+#include <Engine/System/Window.hpp>
+#include <Error.hpp>
+#include <Macro.hpp>
 
 /**
 * public
