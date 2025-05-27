@@ -35,11 +35,11 @@ function _all()
     cd build || _error "mkdir failed"
     cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
     # INFO: Epitech's moulinette does: `cmake --build .` but this is slow as fuc
-    if make -j"$(nproc)" zappy; then
-        _success "compiled zappy"
+    if make -j"$(nproc)" kurwa_zappierdole; then
+        _success "compiled kurwa_zappierdole"
         exit 0
     fi
-    _error "compilation error" "failed to compile zappy"
+    _error "compilation error" "failed to compile kurwa_zappierdole"
 }
 
 function _debug()
@@ -55,11 +55,11 @@ function _debug()
     cd build || _error "mkdir failed"
     cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DEBUG=ON
     # INFO: Epitech's moulinette does: `cmake --build .` but this is slow as fuc
-    if make -j"$(nproc)" zappy; then
-        _success "compiled zappy"
+    if make -j"$(nproc)" kurwa_zappierdole; then
+        _success "compiled kurwa_zappierdole"
         exit 0
     fi
-    _error "compilation error" "failed to compile zappy"
+    _error "compilation error" "failed to compile kurwa_zappierdole"
 }
 
 function _tests_run()
@@ -71,7 +71,7 @@ function _tests_run()
     mkdir -p build
     cd build || _error "mkdir failed"
     cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
-    if ! make -j"$(nproc)" unit_tests; then
+    if ! make -j"$(nproc)" tests_run; then
         _error "unit tests compilation error" "failed to compile unit_tests"
     fi
     cd .. || _error "cd failed"
@@ -96,7 +96,7 @@ function _clean()
 function _fclean()
 {
     _clean
-    rm -rf zappy unit_tests plugins code_coverage.txt unit_tests-*.profraw unit_tests.profdata vgcore* cmake-build-debug
+    rm -rf kurwa_zappierdole unit_tests plugins code_coverage.txt unit_tests-*.profraw unit_tests.profdata vgcore* cmake-build-debug
 }
 
 for args in "$@"
@@ -105,7 +105,7 @@ do
         -h|--help)
             cat << EOF
 USAGE:
-      $0    builds zappy project
+      $0    builds kurwa_zappierdole project
 
 ARGUMENTS:
       $0 [-h|--help]    displays this message

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(zappy VERSION 1.0 LANGUAGES C CXX)
+project(kurwa_zappierdole VERSION 1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -70,23 +70,22 @@ set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE)
 add_subdirectory(external/assimp EXCLUDE_FROM_ALL)
 
 ########################################
-# NOTE: Zappy graphical API
+# NOTE: kurwa_zappierdole graphical API
 ########################################
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
-add_executable(zappy ${SOURCES})
-target_include_directories(zappy PRIVATE 
+add_executable(kurwa_zappierdole ${SOURCES})
+target_include_directories(kurwa_zappierdole PRIVATE 
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/external
-    ${CMAKE_BINARY_DIR}/gladsources/glad/include
-)
-target_link_libraries(zappy PRIVATE
+    ${CMAKE_BINARY_DIR}/gladsources/glad/include)
+target_link_libraries(kurwa_zappierdole PRIVATE
     glfw
     glad
     glm::glm
     assimp::assimp
 )
-target_compile_options(zappy PRIVATE
+target_compile_options(kurwa_zappierdole PRIVATE
     # INFO: classic yutsu warnings
     -Wall
     -Wextra
@@ -127,8 +126,8 @@ target_compile_options(zappy PRIVATE
     -Wwrite-strings
 )
 
-# << NOTE: this is a workaround bc glad compilation is strange so we assure that it is compiled BEFORE zappy
-add_dependencies(zappy glad)
+# << NOTE: this is a workaround bc glad compilation is strange so we assure that it is compiled BEFORE kurwa_zappierdole
+add_dependencies(kurwa_zappierdole glad)
 
 ########################################
 # NOTE: debug
@@ -136,6 +135,6 @@ add_dependencies(zappy glad)
 option(ENABLE_DEBUG "Enable debug macros and flags" OFF)
 
 if(ENABLE_DEBUG)
-    target_compile_definitions(zappy PRIVATE DEBUG=1)
+    target_compile_definitions(kurwa_zappierdole PRIVATE DEBUG=1)
 endif()
 

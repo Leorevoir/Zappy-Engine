@@ -1,3 +1,38 @@
-/**
-TODO: settings jsonc
-*/
+{
+    /**
+    * Core rules
+    */
+    "app": {
+        "name": "Zappy",
+        "version": "1.0.0",
+        "fullscreen": false,
+        "vsync": true,
+        "max_fps": 60
+    },
+    /**
+    * Window rules
+    */
+    "window": {
+        "title": "Zappy",
+        "width": 1280,
+        "height": 720,
+        "resizable": true,
+        "quit_key": "Escape",
+        "icon": "assets/icon.png" //TODO: add icons
+    },
+    /**
+    * Graphics rules
+    */
+    "graphics": {
+        "clear_color": [
+            0.1,
+            0.1,
+            0.1,
+            1.0
+        ], // RGBA format
+        "antialiasing": true
+    }
+    /**
+    * Scene rules
+    */
+}

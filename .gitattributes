@@ -3,3 +3,5 @@
 *.cpp linguist-language=hpp
 *.hpp linguist-language=cpp
 .clang-format linguist-language=yml
+*.c linguist-language=c
+*.h linguist-language=c

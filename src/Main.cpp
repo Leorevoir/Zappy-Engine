@@ -14,8 +14,16 @@
 
 #include <thread>
 
-int main(void)
+#include <Parser/DebugPrintJsonc.hpp>
+#include <Parser/Jsonc.hpp>
+
+int main(const int argc, const char **argv)
 {
+    if (argc == 2) {
+        zap::parser::printJsonc(zap::parser::Jsonc(argv[1]), true);
+        return SUCCESS;
+    }
+
     zap::Engine::initialize();
     zap::Window &window = zap::Engine::getWindow();
 
@@ -29,4 +37,5 @@ int main(void)
 
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
+    return SUCCESS;
 }
