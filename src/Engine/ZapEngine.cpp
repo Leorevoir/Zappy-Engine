@@ -5,19 +5,25 @@
 ** ZapEngine.cpp
 */
 
-#include "Engine/Event/EventManager.hpp"
-#include "Engine/Event/KeyEvent.hpp"
-#include "Engine/System/Timer.hpp"
+#include <Engine/Event/EventManager.hpp>
+#include <Engine/Event/KeyEvent.hpp>
 #include <Engine/Render/Renderer.hpp>
+#include <Engine/System/Timer.hpp>
 #include <Engine/System/Window.hpp>
 #include <Engine/ZapEngine.hpp>
+
+#include <Parser/Jsonc.hpp>
+#include <Parser/JsoncObject.hpp>
+#include <Parser/JsoncTypes.hpp>
 
 #include <Error.hpp>
 #include <Macro.hpp>
 
 #include <memory>
+#include <utility>
 
 static bool is_initialized = false;
+static zap::parser::JsonValue _jsonc = zap::parser::JsonValue();
 
 /**
  * public
@@ -28,12 +34,12 @@ static bool is_initialized = false;
 * @details initialize the Engine
 * @return void
 */
-void zap::Engine::initialize()
+void zap::Engine::initialize(const char *RESTRICT jsonc_config)
 {
     if (is_initialized) {
         return;
     }
-    static zap::Engine __attribute__((unused)) instance;
+    static zap::Engine __attribute__((unused)) instance(jsonc_config);
 }
 
 static std::unique_ptr<zap::Window> _window = nullptr;
@@ -57,8 +63,9 @@ zap::Window &zap::Engine::getWindow() noexcept
  * @details private __ctor__
  * @return [this]
  */
-zap::Engine::Engine()
+zap::Engine::Engine(const char *RESTRICT jsonc_config)
 {
+    _jsonc = parser::Jsonc(jsonc_config);
     _init();
 }
 
@@ -74,7 +81,12 @@ zap::Engine::~Engine() noexcept
 
 static void _initialize_ptr()
 {
-    _window = std::make_unique<zap::Window>(math::Vector2<zap::i32> ZAP_DEFAULT_WIDOW_SIZE);
+    const auto w = zap::parser::getObject(_jsonc, "window");
+
+    if (w.find("size") == w.end()) {
+        throw zap::exception::Error("Engine::_initialize_ptr()", "Key 'size' not found in JSON object");
+    }
+    _window = std::make_unique<zap::Window>(zap::parser::getVector2<zap::i32>(w.at("size"), "width", "height"));
 }
 
 static void _initialize_singleton()

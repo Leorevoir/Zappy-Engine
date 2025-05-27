@@ -9,6 +9,8 @@
 
 #include <Engine/System/Window.hpp>
 
+#include <Macro.hpp>
+
 namespace zap {
 
 /**
@@ -18,12 +20,12 @@ namespace zap {
 class Engine final : public abstract::NonCopyable
 {
     public:
-        static void initialize();
+        static void initialize(const char *RESTRICT jsonc_config);
 
         static Window &getWindow() noexcept;
 
     private:
-        explicit Engine();
+        explicit Engine(const char *RESTRICT jsonc_config);
         ~Engine() noexcept;
 
         void _init();

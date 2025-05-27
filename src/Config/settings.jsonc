@@ -1,21 +1,16 @@
 {
     /**
-    * Core rules
-    */
-    "app": {
-        "name": "Zappy",
-        "version": "1.0.0",
-        "fullscreen": false,
-        "vsync": true,
-        "max_fps": 60
-    },
-    /**
     * Window rules
     */
     "window": {
         "title": "Zappy",
-        "width": 1280,
-        "height": 720,
+        "size": {
+            "width": 1280,
+            "height": 720
+        },
+        "fullscreen": false,
+        "vsync": true,
+        "max_fps": 60,
         "resizable": true,
         "quit_key": "Escape",
         "icon": "assets/icon.png" //TODO: add icons

@@ -14,17 +14,13 @@
 
 #include <thread>
 
-#include <Parser/DebugPrintJsonc.hpp>
-#include <Parser/Jsonc.hpp>
-
 int main(const int argc, const char **argv)
 {
-    if (argc == 2) {
-        zap::parser::printJsonc(zap::parser::Jsonc(argv[1]), true);
-        return SUCCESS;
+    if (argc != 2) {
+        return ERROR;
     }
 
-    zap::Engine::initialize();
+    zap::Engine::initialize(argv[1]);
     zap::Window &window = zap::Engine::getWindow();
 
     while (!window.shouldClose()) {
