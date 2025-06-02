@@ -7,7 +7,9 @@
 
 #pragma once
 
-#include "Error.hpp"
+#include <Zap/Error.hpp>
+
+#define DEBUG
 
 #ifdef DEBUG
     #include <iostream>
