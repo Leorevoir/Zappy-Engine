@@ -9,8 +9,8 @@
 
 namespace zap::context {
 
-void run(const char *title, ecs::Engine &game);
-void run(const char *title, ecs::Engine &game, const Vec2u windowSize);
-void run(const char *title, ecs::Engine &game, const Vec2u windowSize, f64 frame_rate);
+[[nodiscard]] i32 run(const char *title, ecs::Engine &game);
+[[nodiscard]] i32 run(const char *title, ecs::Engine &game, const Vec2u windowSize);
+[[nodiscard]] i32 run(const char *title, ecs::Engine &game, const Vec2u windowSize, f64 frame_rate);
 
 }// namespace zap::context

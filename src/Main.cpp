@@ -28,6 +28,5 @@ int main(void)
 {
     Game game;
 
-    zap::context::run("Zappy", game);
-    return SUCCESS;
+    return zap::context::run("Zappy", game);
 }
