@@ -16,15 +16,16 @@ class Loop
 {
     public:
         explicit Loop(const f64 frame_rate) noexcept;
+        ~Loop() noexcept;
 
         void start(abstract::Window &window);
-        void shutdown(void);
 
     private:
         bool _is_running;
         f64 _frame_time;
 
-        void run(abstract::Window &window);
+        void _run(abstract::Window &window);
+        void _destroy() noexcept;
 };
 
 }// namespace zap::render

@@ -17,11 +17,8 @@ class Engine
         virtual ~Engine() = default;
 
         virtual void start(abstract::Window &window) = 0;
-
         virtual void render(void) = 0;
         virtual void flush(void) = 0;
-
-        virtual void shutdown(void) = 0;
 };
 
 }// namespace zap::render

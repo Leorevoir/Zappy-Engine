@@ -1,25 +1,24 @@
 /*
 ** EPITECH PROJECT, 2025
-** ZapEngine
+** Zappy
 ** File description:
 ** GameEngine.hpp
 */
 
 #pragma once
 
-#include <Zap/Engine/Engine.hpp>
+#include <Zap/ECS/Engine.hpp>
 
 namespace zap::abstract {
 
-class GameEngine : public abstract::Engine
+class GameEngine : public ecs::Engine
 {
     public:
         virtual ~GameEngine() = default;
+        virtual void init() = 0;
 
         void startup();
         void update();
-
-    private:
 };
 
 }// namespace zap::abstract

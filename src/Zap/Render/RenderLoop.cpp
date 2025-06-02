@@ -19,25 +19,22 @@ zap::render::Loop::Loop(const f64 frame_rate) noexcept : _is_running(false), _fr
     /* __ctor__ */
 }
 
+zap::render::Loop::~Loop() noexcept
+{
+    this->_destroy();
+}
+
 void zap::render::Loop::start(abstract::Window &window)
 {
     _is_running = false;
-    this->run(window);
-}
-
-void zap::render::Loop::shutdown()
-{
-    if (!_is_running) {
-        return;
-    }
-    _is_running = false;
+    this->_run(window);
 }
 
 /**
 * private
 */
 
-void zap::render::Loop::run(abstract::Window &window)
+void zap::render::Loop::_run(abstract::Window &window)
 {
     if (_is_running) {
         return;
@@ -57,7 +54,8 @@ void zap::render::Loop::run(abstract::Window &window)
         bool should_render = timer.tick();
 
         if (window.shouldClose()) {
-            shutdown();
+            this->_destroy();
+            return;
         }
 
         if (should_render) {
@@ -71,4 +69,12 @@ void zap::render::Loop::run(abstract::Window &window)
     }
     //TODO: engine each { |e| e.shutdown }
     window.destroy();
+}
+
+void zap::render::Loop::_destroy() noexcept
+{
+    if (!_is_running) {
+        return;
+    }
+    _is_running = false;
 }
