@@ -14,7 +14,7 @@
  * public
  */
 
-zap::render::Loop::Loop(const f64 frame_rate) noexcept : _is_running(false), _frame_time(1.0 / frame_rate)
+zap::render::Loop::Loop(const f64 frame_rate, render::Engine &engine) noexcept : _engine(engine), _is_running(false), _frame_time(1.0 / frame_rate)
 {
     /* __ctor__ */
 }
@@ -47,6 +47,7 @@ void zap::render::Loop::_run(abstract::Window &window)
     int frames = 0;
 
     window.startup();
+    _engine.startup();
     //TODO: initialize the render engine
 
     while (_is_running) {

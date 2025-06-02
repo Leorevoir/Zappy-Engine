@@ -16,7 +16,8 @@ class Engine
     public:
         virtual ~Engine() = default;
 
-        virtual void start(abstract::Window &window) = 0;
+        virtual void init() = 0;
+        virtual void startup() = 0;
         virtual void render(void) = 0;
         virtual void flush(void) = 0;
 };

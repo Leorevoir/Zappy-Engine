@@ -28,7 +28,7 @@ void zap::context::run(const char *title, ecs::Engine &game, const Vec2u windowS
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    auto render = std::make_unique<zap::render::Loop>(frame_rate);
+    auto render = std::make_unique<zap::render::Loop>(frame_rate, dynamic_cast<zap::render::Engine &>(game));
     auto window = std::make_unique<zap::window::Context>(title, windowSize);
 
     render->start(*window);

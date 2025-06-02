@@ -15,10 +15,11 @@ class GameEngine : public ecs::Engine
 {
     public:
         virtual ~GameEngine() = default;
-        virtual void init() = 0;
 
-        void startup();
+        void startup() override;
         void update();
+        void render() override;
+        void flush() override;
 };
 
 }// namespace zap::abstract

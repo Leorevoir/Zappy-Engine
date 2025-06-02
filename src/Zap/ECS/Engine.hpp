@@ -9,11 +9,14 @@
 
 #include <Zap/ECS/Entity.hpp>
 #include <Zap/ECS/System.hpp>
+
+#include <Zap/Render/RenderEngine.hpp>
+
 #include <string>
 
 namespace zap::ecs {
 
-class Engine
+class Engine : public zap::render::Engine
 {
     public:
         virtual ~Engine() = default;
