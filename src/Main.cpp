@@ -5,28 +5,39 @@
 ** Application.cpp
 */
 
-#include <Engine/Event/EventManager.hpp>
-#include <Engine/Render/Renderer.hpp>
-#include <Engine/System/Timer.hpp>
-#include <Engine/ZapEngine.hpp>
+#include <Zap/Error.hpp>
+#include <Zap/Logger.hpp>
+#include <Zap/Macro.hpp>
 
-#include <Macro.hpp>
+#include <Zap/Render/RenderLoop.hpp>
+#include <Zap/Window/Context.hpp>
 
-#include <thread>
+// clang-format off
+#define GLAD_GL_IMPLEMENTATION
+#include <glad/gl.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+// clang-format on
+
+#include <memory>
 
 int main(void)
 {
-    zap::Engine::initialize();
-    zap::Window &window = zap::Engine::getWindow();
+    glfwInit();
 
-    while (!window.shouldClose()) {
+    try {
+        std::unique_ptr<zap::window::Context> window = std::make_unique<zap::window::Context>("Zappy", Vec2u{800, 600});
+        std::unique_ptr<zap::render::Loop> loop = std::make_unique<zap::render::Loop>(60);
 
-        zap::EventManager::pollEvents();
-        zap::Timer::update();
-        zap::Renderer().render();
+        loop->start(*window);
+        loop->shutdown();
+        window.reset();
+        loop.reset();
+        glfwTerminate();
 
-        window.swapBuffer();
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    } catch (const zap::exception::Error &e) {
+        zap::logger::error(e);
+        return ERROR;
     }
+    return SUCCESS;
 }
