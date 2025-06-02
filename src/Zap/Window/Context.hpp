@@ -34,7 +34,7 @@ class Context final : public render::abstract::Window
         void setSize(const Vec2u &size) override;
 
     private:
-        GLFWwindow *_handle;
+        GLFWwindow *_handle = nullptr;
 
         void create(const char *title, const Vec2u &size);
 };

@@ -54,3 +54,5 @@ compile_commands.json
 build/
 !CMakeLists.txt
 cmake-build-debug/
+
+console.log

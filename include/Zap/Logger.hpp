@@ -9,11 +9,8 @@
 
 #include <Zap/Error.hpp>
 
-#define DEBUG
-
 #ifdef DEBUG
     #include <iostream>
-#else
 #endif
 
 namespace zap::logger {
