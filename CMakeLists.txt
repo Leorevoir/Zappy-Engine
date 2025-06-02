@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(zappy VERSION 1.0 LANGUAGES C CXX)
+project(zappy VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -66,7 +66,7 @@ glad_add_library(glad STATIC API gl:core=3.3)
 ########################################
 # NOTE: Zappy graphical API
 ########################################
-file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(zappy ${SOURCES})
 target_include_directories(zappy PRIVATE 
     ${CMAKE_SOURCE_DIR}/src
@@ -103,8 +103,8 @@ target_compile_options(zappy PRIVATE
     -Wcast-align
     -Wcast-qual
     -Wmissing-declarations
-    # -Woverloaded-virtual << commented because it is not compatible for GCC (only G++)
-    # -Wnon-virtual-dtor   << commented because it is not compatible for GCC (only G++)
+    -Woverloaded-virtual
+    -Wnon-virtual-dtor
 
     # INFO: logic bugs & bad practices
     # -Wduplicated-cond << not on clang

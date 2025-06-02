@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Zappy
+** Zap-Engine
 ** File description:
 ** Error.cpp
 */

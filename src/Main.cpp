@@ -1,32 +1,17 @@
 /*
 ** EPITECH PROJECT, 2025
-** Zappy
+** Zap-Engine
 ** File description:
-** Application.cpp
+** Main.cpp
 */
 
-#include <Zap/Context.hpp>
-#include <Zap/GameEngine.hpp>
 #include <Zap/Macro.hpp>
-#include <iostream>
 
-class Game : public zap::abstract::GameEngine
-{
-    public:
-        Game() = default;
-        ~Game() override = default;
-
-        void init() override
-        {
-            std::cout << "initialisation du jeu ici" << std::endl;
-        }
-
-    private:
-};
+#include <TutoGame.hpp>
 
 int main(void)
 {
-    Game game;
+    tuto::Game game;
 
     return zap::context::run("Zappy", game);
 }

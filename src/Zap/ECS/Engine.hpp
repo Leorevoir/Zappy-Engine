@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <Zap/ECS/Entity.hpp>
-#include <Zap/ECS/System.hpp>
+#include <Zap/ECS/Entity/Entity.hpp>
+#include <Zap/ECS/Entity/System.hpp>
 
 #include <Zap/Render/RenderEngine.hpp>
 
