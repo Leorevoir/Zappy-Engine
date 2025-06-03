@@ -27,6 +27,8 @@ using Vec2f = math::Vector2<f32>;
 using Vec2i = math::Vector2<i32>;
 using Vec2u = math::Vector2<u32>;
 
-using Vec3f = math::Vector3<f32>;
+using Vec3f = math::Vector3<f64>;
 using Vec3i = math::Vector3<i32>;
 using Vec3u = math::Vector3<u32>;
+
+using VoidPtr = void *;
