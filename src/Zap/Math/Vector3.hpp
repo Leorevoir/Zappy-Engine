@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Zappy
+** Zap-Engine
 ** File description:
 ** Vector3.hpp
 */
@@ -11,6 +11,8 @@
 #include <type_traits>
 
 namespace math {
+
+struct Quaternion;
 
 // clang-format off
 /**
@@ -36,6 +38,38 @@ struct Vector3 {
     }
 
     constexpr explicit Vector3() = default;
+
+    Vector3<T> normalize();
+    [[nodiscard]] Vector3<T> normalized() const;
+
+    [[nodiscard]] T length() const;
+    [[nodiscard]] T max() const;
+    [[nodiscard]] T dot(const Vector3<T> &other) const;
+    [[nodiscard]] Vector3<T> cross(const Vector3<T> &other) const;
+
+    [[nodiscard]] Vector3<T> rotate(const Vector3<T> &axis, float angle) const;
+    [[nodiscard]] Vector3<T> rotate(const Quaternion &rotation) const;
+    [[nodiscard]] Vector3<T> reflect(const Quaternion &quaternion) const;
+    [[nodiscard]] Vector3<T> lerp(const Vector3<T> &other, T t) const;
+
+    [[nodiscard]] Vector3<T> operator+(const Vector3<T> &other) const;
+    [[nodiscard]] Vector3<T> operator-(const Vector3<T> &other) const;
+    [[nodiscard]] Vector3<T> operator*(const Vector3<T> &other) const;
+    [[nodiscard]] Vector3<T> operator/(const Vector3<T> &other) const;
+
+    [[nodiscard]] Vector3<T> operator+(const T scalar) const;
+    [[nodiscard]] Vector3<T> operator-(const T scalar) const;
+    [[nodiscard]] Vector3<T> operator*(const T scalar) const;
+    [[nodiscard]] Vector3<T> operator/(const T scalar) const;
+
+    [[nodiscard]] bool operator==(const Vector3<T> &other) const;
+    [[nodiscard]] bool operator!=(const Vector3<T> &other) const;
+
+    [[nodiscard]] Vector3<T> absolute() const;
+    [[nodiscard]] Vector3<T> set() const;
+    [[nodiscard]] Vector3<T> floor() const;
+    [[nodiscard]] Vector3<T> ceil() const;
+
 };
 // clang-format on
 /**
@@ -51,5 +85,8 @@ static inline std::ostream &operator<<(std::ostream &os, const Vector3<T> &self)
     os << "{" << self._x << ", " << self._y << ", " << self._z << "}";
     return os;
 }
+
+template class Vector3<float>;
+template class Vector3<double>;
 
 }// namespace math
