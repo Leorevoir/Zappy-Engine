@@ -8,12 +8,10 @@
 #pragma once
 
 #include <Zap/Context.hpp>
-#include <Zap/ECS/Texture/Model.hpp>
+#include <Zap/ECS/Model/Model.hpp>
 #include <Zap/GameEngine.hpp>
 
 namespace tuto {
-
-using Model = std::shared_ptr<zap::ecs::Model>;
 
 class Game final : public zap::abstract::GameEngine
 {
@@ -24,7 +22,7 @@ class Game final : public zap::abstract::GameEngine
         void init() override;
 
     private:
-        Model load_model(const std::string &name) const;
+        zap::ecs::Model::ModelPtr load_model(const std::string &name) const;
 };
 
 }// namespace tuto

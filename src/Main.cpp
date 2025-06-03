@@ -5,13 +5,22 @@
 ** Main.cpp
 */
 
-#include <Zap/Macro.hpp>
+// #include <Zap/Macro.hpp>
+//
+// #include <TutoGame.hpp>
+//
+// int main(void)
+// {
+//     tuto::Game game;
+//
+//     return zap::context::run("Zappy", game);
+// }
 
-#include <TutoGame.hpp>
+#include "Zap/Types.hpp"
+#include <Zap/Math/Vector3.hpp>
+#include <iostream>
 
 int main(void)
 {
-    tuto::Game game;
-
-    return zap::context::run("Zappy", game);
+    return 0;
 }

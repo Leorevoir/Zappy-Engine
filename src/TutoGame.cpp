@@ -8,6 +8,7 @@
 #include <TutoGame.hpp>
 
 #include <Zap/Filename.hpp>
+#include <Zap/ObjLoader.hpp>
 
 #include <memory>
 
@@ -26,7 +27,7 @@ void tuto::Game::init()
 * private
 */
 
-tuto::Model tuto::Game::load_model(const std::string &name) const
+zap::ecs::Model::ModelPtr tuto::Game::load_model(const std::string &name) const
 {
-    return std::make_shared<zap::ecs::Model>(zap::Filename::getPath("assets/models/" + name + ".obj"));
+    return zap::ecs::Model::load(zap::obj::load(zap::Filename::getPath("assets/models/" + name + ".obj")));
 }
