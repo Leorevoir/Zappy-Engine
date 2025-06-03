@@ -31,6 +31,11 @@
 * @details default general macros to avoid magic numbers everywhere
 */
 
+#define ZAP_EPSILON 1e-6
+#define ZAP_EPSILON_F32 1e-6f
+
+#define ZAP_INVALID_INDEX -1
+
 #define ZAP_DEFAULT_VALUE 0
 
 #define ZAP_OPENGL_CONTEXT_MAJOR 3
