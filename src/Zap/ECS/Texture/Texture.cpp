@@ -47,7 +47,33 @@ void zap::ecs::Texture::bind(i32 sampler_slot) const
 
 zap::ecs::Texture::TexturePtr zap::ecs::Texture::load(const std::string &path)
 {
-    (void) path;
-    return nullptr;
-    // auto bitmap = std::make_unique<zap::Bitmap>(path);
+    std::unique_ptr<Bitmap> bitmap = std::make_unique<Bitmap>(path);
+
+    u32 out_id;
+
+    /** @brief generate a texture ID and bind it */
+    glGenTextures(1, &out_id);
+    glBindTexture(GL_TEXTURE_2D, out_id);
+
+    /** @brief set texture parameters */
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    /** @brief set texture filtering */
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    /** @brief load the texture data */
+    const i32 format = bitmap->is_alpha() ? GL_RGBA : GL_RGB;
+    const Vec2i size = bitmap->get_size();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, format, size._x, size._y, 0, static_cast<GLenum>(format), GL_UNSIGNED_BYTE, bitmap->get_pixels().data());
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
+
+    /** @brief unbind the texture */
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    return std::make_shared<Texture>(out_id, path);
 }

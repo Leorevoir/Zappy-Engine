@@ -21,7 +21,7 @@ class Bitmap
 {
     public:
         explicit Bitmap(const std::string &filename);
-        ~Bitmap();
+        constexpr ~Bitmap() = default;
 
         bool is_alpha() const;
         Bitmap multiply_alpha();
@@ -31,7 +31,7 @@ class Bitmap
 
         void set_pixel(const Vec2i &pixel, const ColorU8 &color);
 
-        const Vec2i &getSize() const;
+        const Vec2i &get_size() const;
         const std::vector<u8> &get_pixels() const;
         const ColorU8 get_pixel(const Vec2i &position) const;
 

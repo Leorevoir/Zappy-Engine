@@ -112,7 +112,7 @@ void zap::ecs::Bitmap::set_pixel(const Vec2i &pixel, const ColorU8 &color)
  * getters
  */
 
-const Vec2i &zap::ecs::Bitmap::getSize() const
+const Vec2i &zap::ecs::Bitmap::get_size() const
 {
     return _size;
 }
