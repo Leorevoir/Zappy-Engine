@@ -9,9 +9,11 @@
 
 #include <Zap/Types.hpp>
 
+#include <Zap/NonCopyable.hpp>
+
 namespace zap::ecs {
 
-class EntityCount
+class EntityCount final : public abstract::NonCopyable
 {
     public:
         static u32 increment();
