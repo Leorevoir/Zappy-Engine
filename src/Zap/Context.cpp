@@ -30,20 +30,22 @@ i32 zap::context::run(const char *title, ecs::Engine &game, const Vec2u windowSi
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    const auto cleanup = [&]() { glfwTerminate(); };
+    std::unique_ptr<zap::window::Context> window;
+    std::unique_ptr<zap::render::Loop> render;
 
-    try {
-        auto render = std::make_unique<zap::render::Loop>(frame_rate, dynamic_cast<zap::render::Engine &>(game));
-        auto window = std::make_unique<zap::window::Context>(title, windowSize);
-
-        render->start(*window);
-
+    static const auto __cleanup = [&]() {
         render.reset();
         window.reset();
+        glfwTerminate();
+    };
 
-        cleanup();
+    try {
+        render = std::make_unique<zap::render::Loop>(frame_rate, dynamic_cast<zap::render::Engine &>(game));
+        window = std::make_unique<zap::window::Context>(title, windowSize);
+        render->start(*window);
+        __cleanup();
     } catch (zap::exception::Error &e) {
-        cleanup();
+        __cleanup();
         zap::logger::error(e);
         return ERROR;
     }

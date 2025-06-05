@@ -63,7 +63,7 @@ void zap::render::Loop::_run(abstract::Window &window)
             //TODO: engine each { |e| e.render }
             window.render();
             //TODO: engine each { |e| e.flush }
-            frames += 1;
+            frames = frames + 1;
         } else {
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
