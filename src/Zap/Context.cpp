@@ -6,11 +6,12 @@
 */
 
 //INFO: context first because it includes GLFW & GLAD headers
-#include "Zap/Error.hpp"
-#include "Zap/Logger.hpp"
+#include <Zap/Context.hpp>
+
+#include <Zap/Error.hpp>
+#include <Zap/Logger.hpp>
 #include <Zap/Window/Context.hpp>
 
-#include <Zap/Context.hpp>
 #include <Zap/Macro.hpp>
 #include <Zap/Render/RenderLoop.hpp>
 
