@@ -9,6 +9,7 @@
 
 #include <Zap/Context.hpp>
 #include <Zap/ECS/Model/Model.hpp>
+#include <Zap/ECS/Texture/Texture.hpp>
 #include <Zap/GameEngine.hpp>
 
 namespace tuto {
@@ -23,6 +24,7 @@ class Game final : public zap::abstract::GameEngine
 
     private:
         zap::ecs::Model::ModelPtr load_model(const std::string &name) const;
+        zap::ecs::Texture::TexturePtr load_texture(const std::string &name) const;
 };
 
 }// namespace tuto

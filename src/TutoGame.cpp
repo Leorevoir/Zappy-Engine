@@ -27,6 +27,11 @@ void tuto::Game::init()
 * private
 */
 
+zap::ecs::Texture::TexturePtr tuto::Game::load_texture(const std::string &name) const
+{
+    return zap::ecs::Texture::load(zap::Filename::getPath("assets/textures/" + name + ".png"));
+}
+
 zap::ecs::Model::ModelPtr tuto::Game::load_model(const std::string &name) const
 {
     return zap::ecs::Model::load(zap::obj::load(zap::Filename::getPath("assets/models/" + name + ".obj")));
