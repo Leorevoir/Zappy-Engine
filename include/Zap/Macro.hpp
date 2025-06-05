@@ -24,6 +24,12 @@
     #define unit_static static
 #endif
 
+#if defined(DEBUG)
+    #define ZAP_VISIBILITY __attribute__((visibility("default")))
+#else
+    #define ZAP_VISIBILITY __attribute__((visibility("hidden")))
+#endif
+
 #define UNUSED __attribute__((unused))
 
 /**
