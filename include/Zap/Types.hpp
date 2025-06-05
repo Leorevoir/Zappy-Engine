@@ -23,7 +23,7 @@ using i64 = signed long long;
 using f32 = float;
 using f64 = double;
 
-using Vec2f = math::Vector2<f32>;
+using Vec2f = math::Vector2<f64>;
 using Vec2i = math::Vector2<i32>;
 using Vec2u = math::Vector2<u32>;
 

@@ -17,10 +17,10 @@ struct Vertex {
         Vec3f _position;
         i32 _normal_index = ZAP_INVALID_INDEX;
         i32 _texture_index = ZAP_INVALID_INDEX;
-        u32 _index;
+        u64 _index;
         f32 _length;
 
-        explicit inline Vertex(const Vec3f &position, u32 index)
+        explicit inline Vertex(const Vec3f &position, u64 index)
         {
             _index = index;
             _length = static_cast<f32>(position.length());
