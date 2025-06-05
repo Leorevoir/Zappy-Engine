@@ -34,3 +34,11 @@ using Vec3i = math::Vector3<i32>;
 using Vec3u = math::Vector3<u32>;
 
 using VoidPtr = void *;
+
+//TODO: safe edians compatibility
+struct ColorU8 {
+        u8 r = 0;
+        u8 g = 0;
+        u8 b = 0;
+        u8 a = 255;
+};
