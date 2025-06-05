@@ -37,6 +37,12 @@ struct Vector3 {
         /* __ctor__ */
     }
 
+    template <typename U>
+    explicit Vector3(const Vector3<U>& other) : _x(static_cast<T>(other._x)), _y(static_cast<T>(other._y)), _z(static_cast<T>(other._z))
+    {
+        /* __cast_ctor__ */
+    }
+
     constexpr explicit Vector3() = default;
 
     Vector3<T> normalize();

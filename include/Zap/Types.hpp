@@ -23,10 +23,12 @@ using i64 = signed long long;
 using f32 = float;
 using f64 = double;
 
+using Vec2f32 = math::Vector2<f32>;
 using Vec2f = math::Vector2<f64>;
 using Vec2i = math::Vector2<i32>;
 using Vec2u = math::Vector2<u32>;
 
+using Vec3f32 = math::Vector3<f32>;
 using Vec3f = math::Vector3<f64>;
 using Vec3i = math::Vector3<i32>;
 using Vec3u = math::Vector3<u32>;
