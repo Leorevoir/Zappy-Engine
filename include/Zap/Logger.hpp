@@ -26,7 +26,7 @@ constexpr const char *RESET = "\033[0m";
 void error(const zap::exception::Error &e);
 
 template<typename... Args>
-void debug(__attribute_maybe_unused__ Args &&...args)
+static inline void debug(__attribute_maybe_unused__ Args &&...args)
 {
 #ifdef DEBUG
     std::ostringstream oss;
@@ -36,7 +36,7 @@ void debug(__attribute_maybe_unused__ Args &&...args)
 }
 
 template<typename... Args>
-void task_start(Args &&...args)
+static inline void task_start(__attribute_maybe_unused__ Args &&...args)
 {
 #ifdef DEBUG
     std::ostringstream oss;
@@ -46,7 +46,7 @@ void task_start(Args &&...args)
 }
 
 template<typename... Args>
-void task_done(Args &&...args)
+static inline void task_done(__attribute_maybe_unused__ Args &&...args)
 {
 #ifdef DEBUG
     std::ostringstream oss;
