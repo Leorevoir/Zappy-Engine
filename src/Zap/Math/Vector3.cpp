@@ -24,7 +24,7 @@ T math::Vector3<T>::length() const
 template<typename T>
 T math::Vector3<T>::max() const
 {
-    return static_cast<T>(std::max(_x, _y, _z));
+    return std::max(std::max(_x, _y), _z);
 }
 
 template<typename T>
@@ -59,13 +59,13 @@ math::Vector3<T> math::Vector3<T>::normalized() const
 }
 
 template<typename T>
-math::Vector3<T> math::Vector3<T>::rotate(const Vector3<T> &axis, f32 angle) const
+math::Vector3<T> math::Vector3<T>::rotate(const Vector3<T> &axis, T angle) const
 {
     const Vector3<T> norm_axis = axis.normalized();
 
-    const f32 half_angle = angle * 0.5f;
-    const f32 half_sin = std::sin(half_angle);
-    const f32 half_cos = std::cos(half_angle);
+    const T half_angle = angle * 0.5;
+    const T half_sin = std::sin(half_angle);
+    const T half_cos = std::cos(half_angle);
 
     const Quaternion q(norm_axis._x * half_sin, norm_axis._y * half_sin, norm_axis._z * half_sin, half_cos);
 

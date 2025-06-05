@@ -47,7 +47,7 @@ struct Vector3 {
     [[nodiscard]] T dot(const Vector3<T> &other) const;
     [[nodiscard]] Vector3<T> cross(const Vector3<T> &other) const;
 
-    [[nodiscard]] Vector3<T> rotate(const Vector3<T> &axis, float angle) const;
+    [[nodiscard]] Vector3<T> rotate(const Vector3<T> &axis, T angle) const;
     [[nodiscard]] Vector3<T> rotate(const Quaternion &rotation) const;
     [[nodiscard]] Vector3<T> reflect(const Quaternion &quaternion) const;
     [[nodiscard]] Vector3<T> lerp(const Vector3<T> &other, T t) const;
@@ -86,7 +86,6 @@ static inline std::ostream &operator<<(std::ostream &os, const Vector3<T> &self)
     return os;
 }
 
-template class Vector3<float>;
 template class Vector3<double>;
 
 }// namespace math
