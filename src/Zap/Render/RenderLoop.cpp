@@ -69,7 +69,6 @@ void zap::render::Loop::_run(abstract::Window &window)
         }
     }
     //TODO: engine each { |e| e.shutdown }
-    window.destroy();
 }
 
 void zap::render::Loop::_destroy() noexcept
