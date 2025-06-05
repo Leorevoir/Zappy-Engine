@@ -11,15 +11,21 @@
 #include <Zap/Filename.hpp>
 #include <Zap/ObjLoader.hpp>
 
-static const std::vector<std::string> _split_by_space(const std::string &line)
+static const std::vector<std::string> _split_by(const std::string &line, const char delimiter)
 {
-    std::istringstream stream(line);
-    std::string word;
     std::vector<std::string> result;
+    std::string current;
 
-    while (stream >> word) {
-        result.push_back(word);
+    for (auto it = line.begin(); it != line.end(); ++it) {
+        if (*it == delimiter) {
+            result.push_back(current);
+            current.clear();
+            continue;
+        }
+        current += *it;
     }
+
+    result.push_back(current);
     return result;
 }
 
@@ -60,26 +66,24 @@ zap::ecs::ModelData zap::obj::load(const std::string &filename)
 
         /** @brief `v ` for vertex positions */
         if (l.starts_with("v ")) {
-            const Vec3f vec3 = _create_vec3f(_split_by_space(l), line_number);
+            const Vec3f vec3 = _create_vec3f(_split_by(l, ' '), line_number);
             vertices.push_back(Vertex{vec3, vertices.size()});
         }
 
         /** @brief `vt ` for texture coordinates */
         if (l.starts_with("vt ")) {
-            const Vec2f vec2 = _create_vec2f(_split_by_space(l), line_number);
+            const Vec2f vec2 = _create_vec2f(_split_by(l, ' '), line_number);
             textures.push_back(vec2);
         }
 
         /** @brief `vn ` for vertex normals */
         if (l.starts_with("vn ")) {
-            const Vec3f vec3 = _create_vec3f(_split_by_space(l), line_number);
+            const Vec3f vec3 = _create_vec3f(_split_by(l, ' '), line_number);
             normals.push_back(vec3);
         }
 
         /** @brief `f ` for faces */
-        // if (l.starts_with("f ")) {
-        //     break;
-        // }
+        if (l.starts_with("f ")) {}
     }
 
     return ecs::ModelData{{}, indices, {}, {}, 0.0f};
